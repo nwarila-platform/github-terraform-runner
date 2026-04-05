@@ -1,0 +1,14 @@
+github-terraform-framework:
+  description: "Terraform framework for managing GitHub repositories, rulesets, security defaults, and shared account-level governance as code."
+  visibility: "public"
+  topics:
+    - github
+    - terraform
+    - infrastructure-as-code
+    - repository-management
+    - devsecops
+    - security
+    - compliance
+    - policy-as-code
+    - rulesets
+    - github-actions

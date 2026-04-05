@@ -1,0 +1,18 @@
+batch-powershell-polyglot:
+  description: "MS Batch + PowerShell polyglot scripts (single-file .bat/.cmd wrappers with embedded PowerShell) for portable Windows automation, elevation handling, and reusable scripting patterns."
+  visibility: "public"
+  topics:
+    - windows
+    - powershell
+    - batch
+    - cmd
+    - polyglot
+    - shell-scripting
+    - windows-automation
+    - scripting
+    - sysadmin
+    - devops
+    - cli
+    - automation
+    - elevation
+    - self-contained

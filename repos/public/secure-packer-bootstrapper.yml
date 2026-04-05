@@ -1,0 +1,19 @@
+secure-packer-bootstrapper:
+  description: "Per-build credential bootstrap for Packer/Kickstart: generates a passphrase-protected SSH keypair and temporary build-user password (hashed for Kickstart), injects the public key + hash via Packer vars, and loads the private key into ssh-agent for Packer/Ansible."
+  visibility: "public"
+  topics:
+    - packer
+    - kickstart
+    - anaconda
+    - ssh
+    - ssh-agent
+    - credentials
+    - password
+    - key-management
+    - devsecops
+    - automation
+    - ci-cd
+    - security
+    - image-building
+    - hardening
+    - ansible

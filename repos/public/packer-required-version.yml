@@ -1,0 +1,18 @@
+packer-required-version:
+  description: "Extract Packer required_version from HCL templates and export PACKER_VERSION via GitHub Actions."
+  visibility: "public"
+  topics:
+    - packer
+    - hashicorp
+    - hcl
+    - github-actions
+    - ci-cd
+    - infrastructure-as-code
+    - devsecops
+    - automation
+    - bash
+    - shell-script
+    - versioning
+    - version-constraints
+    - security
+    - compliance

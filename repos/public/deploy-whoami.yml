@@ -1,0 +1,12 @@
+deploy-whoami:
+  description: "Lightweight diagnostic service for verifying Gateway API routing, Cilium network policies, and MetalLB service IP allocation on bare-metal Kubernetes."
+  visibility: "public"
+  topics:
+    - kubernetes
+    - gitops
+    - argocd
+    - kustomize
+    - deploy-ok
+    - devsecops
+    - diagnostics
+    - networking
