@@ -1,0 +1,13 @@
+deploy-hello-world:
+  description: "Minimal deployable service that proves the GitOps admission contract end to end with a stateless hello-world application."
+  visibility: "public"
+  topics:
+    - kubernetes
+    - gitops
+    - argocd
+    - kustomize
+    - ghcr
+    - deploy-ok
+    - devsecops
+    - platform-reference
+    - hello-world

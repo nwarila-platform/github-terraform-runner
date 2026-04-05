@@ -1,0 +1,14 @@
+ansible-framework:
+  description: "Ansible automation framework for standardized, secure, repeatable infrastructure and application deployments."
+  visibility: "public"
+  topics:
+    - ansible
+    - automation
+    - configuration-management
+    - infrastructure-as-code
+    - devsecops
+    - ci-cd
+    - security
+    - compliance
+    - hardening
+    - linux

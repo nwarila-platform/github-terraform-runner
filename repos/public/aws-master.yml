@@ -1,0 +1,17 @@
+aws-master:
+  description: "Terraform landing-zone/control-plane for a 3-account AWS Organization (DEV/TEST/PROD) and shared bootstrap artifacts (remote state + tfvars) consumed by all infrastructure repos."
+  visibility: "public"
+  topics:
+    - aws
+    - aws-organizations
+    - landing-zone
+    - multi-account
+    - terraform
+    - infrastructure-as-code
+    - remote-state
+    - terraform-backend
+    - s3
+    - iam
+    - security
+    - devsecops
+    - compliance

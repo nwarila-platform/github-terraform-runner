@@ -1,0 +1,15 @@
+proxmox-packer-framework:
+  description: "Packer framework for building hardened Linux VM templates for deployment to a Proxmox cluster."
+  visibility: "public"
+  topics:
+    - proxmox
+    - packer
+    - virtualization
+    - vm-templates
+    - linux
+    - kickstart
+    - cloud-init
+    - devsecops
+    - ci-cd
+    - infrastructure-as-code
+    - security
