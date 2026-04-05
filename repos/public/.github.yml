@@ -1,0 +1,10 @@
+.github:
+  description: "Default community health files, issue/PR templates, and shared GitHub metadata for repositories owned by nwarila-platform."
+  visibility: "public"
+  topics:
+    - github
+    - community-health
+    - issue-templates
+    - pull-request-templates
+    - security-policy
+    - codeowners

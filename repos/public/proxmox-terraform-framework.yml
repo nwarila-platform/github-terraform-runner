@@ -1,0 +1,17 @@
+proxmox-terraform-framework:
+  description: "Terraform framework for deploying VM templates and infrastructure to a Proxmox cluster."
+  visibility: "public"
+  topics:
+    - proxmox
+    - terraform
+    - infrastructure-as-code
+    - virtualization
+    - vm-templates
+    - cloud-init
+    - devsecops
+    - gitops
+    - ci-cd
+    - security
+  pages:
+    build_type: "workflow"
+    cname: null

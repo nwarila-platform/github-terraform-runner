@@ -1,0 +1,20 @@
+compliance-baseline-reference:
+  description: "Reference archive of configuration and policy files from hardened systems, mapped to DISA STIG, CIS Benchmarks, PCI DSS, and other compliance frameworks for building secure baselines from scratch."
+  visibility: "public"
+  topics:
+    - linux
+    - compliance
+    - security
+    - hardening
+    - stig
+    - disa
+    - cis-benchmarks
+    - pci-dss
+    - baseline
+    - os-hardening
+    - audit
+    - rhel
+    - redhat
+    - devsecops
+    - image-builder
+    - policy-as-code

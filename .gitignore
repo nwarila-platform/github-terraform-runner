@@ -1,0 +1,19 @@
+# Ignore everything by default.
+**
+
+# Keep core repo files.
+!/.gitignore
+!/.github/
+!/.github/workflows/
+!/.github/workflows/*.yml
+
+# Keep repo definition YAMLs.
+!/repos/
+!/repos/public/
+!/repos/public/*.yml
+!/repos/public/*.yaml
+!/repos/private/
+!/repos/private/.gitkeep
+!/repos/private/*.yml
+!/repos/private/*.yaml
+

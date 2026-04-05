@@ -1,0 +1,14 @@
+aws-terraform-framework:
+  description: "Terraform framework for deploying and managing AWS EC2 and RDS infrastructure with secure, repeatable patterns."
+  visibility: "public"
+  topics:
+    - aws
+    - terraform
+    - infrastructure-as-code
+    - ec2
+    - rds
+    - vpc
+    - iam
+    - devsecops
+    - security
+    - compliance

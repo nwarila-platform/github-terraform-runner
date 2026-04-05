@@ -1,0 +1,16 @@
+secure-rockylinux9-template:
+  description: "Packer template for building hardened, STIG-aligned Rocky Linux 9 VM images with automated compliance validation."
+  visibility: "public"
+  topics:
+    - rocky-linux
+    - packer
+    - vm-templates
+    - hardening
+    - stig
+    - security
+    - compliance
+    - devsecops
+    - infrastructure-as-code
+    - linux
+    - kickstart
+    - cloud-init

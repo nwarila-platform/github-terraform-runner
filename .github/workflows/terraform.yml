@@ -1,0 +1,101 @@
+name: 'Deploy GitHub Terraform'
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "repos/**"
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: tf-${{ github.event.repository.name }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    env:
+      TF_VAR_github_owner: "nwarila-platform"
+      TF_VAR_github_token: "${{ secrets.FINE_GRAINED_PERSONAL_ACCESS_TOKEN }}"
+
+    steps:
+      - name: 'Initialize Temporary AWS Credentials (via OIDC)'
+        uses: 'aws-actions/configure-aws-credentials@8df5847569e6427dd6c4fb1cf565c83acfa8afa7'  # v6.0.0
+        with:
+          role-to-assume:      ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region:          ${{ secrets.AWS_REGION }}
+          mask-aws-account-id: true
+
+      - name: 'Checkout This Repository'
+        uses: 'actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8'  # v5.0.0
+        with:
+          repository: "${{ github.repository }}"
+          ref: '${{ github.sha }}'
+          path: '${{ github.event.repository.name }}'
+
+      - name: "Checkout The 'GitHub Terraform Framework' Repository"
+        uses: 'actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8'  # v5.0.0
+        with:
+          repository: 'nwarila-platform/github-terraform-framework'
+          ref: 'main'
+          path: 'github-terraform-framework'
+
+      - name: 'Download Private Repo Definitions from S3'
+        run: |
+          DEST="${{ github.workspace }}/${{ github.event.repository.name }}/repos/private"
+          SRC="s3://${{ secrets.AWS_S3_BUCKET }}/nwarila-platform/${{ github.event.repository.name }}/repos"
+          mkdir -p "$DEST"
+          aws s3 cp "$SRC/herowars_sim.yml"              "$DEST/herowars_sim.yml"
+          aws s3 cp "$SRC/screenshot-gpt-blinkstick.yml"  "$DEST/screenshot-gpt-blinkstick.yml"
+
+      - name: 'Assemble Workspace'
+        run: |
+          cp -r "${{ github.workspace }}/${{ github.event.repository.name }}/repos/public/"*  "${{ github.workspace }}/github-terraform-framework/terraform/repos/public/"  2>/dev/null || true
+          cp -r "${{ github.workspace }}/${{ github.event.repository.name }}/repos/private/"* "${{ github.workspace }}/github-terraform-framework/terraform/repos/private/" 2>/dev/null || true
+
+      - name: 'Setup Terraform'
+        uses: 'hashicorp/setup-terraform@v3'
+        with:
+          terraform_version: "1.14.3"
+
+      - name: 'Terraform Init'
+        working-directory: "${{ github.workspace }}/github-terraform-framework/terraform"
+        run: |
+          terraform init                                                                              \
+            -backend-config="bucket=${{ secrets.AWS_S3_BUCKET }}"                                     \
+            -backend-config="encrypt=true"                                                            \
+            -backend-config="key=nwarila-platform/${{ github.event.repository.name }}/terraform.tfstate" \
+            -backend-config="region=${{ secrets.AWS_REGION }}"
+
+      - name: 'Terraform Validate'
+        working-directory: "${{ github.workspace }}/github-terraform-framework/terraform"
+        run: terraform validate
+
+      - name: 'Terraform Plan'
+        working-directory: "${{ github.workspace }}/github-terraform-framework/terraform"
+        run: |
+          terraform plan -out=tfplan
+          terraform show -no-color tfplan > plan-output.txt
+
+      - name: 'Archive Plan Output'
+        uses: 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02'  # v4.6.2
+        if: always()
+        with:
+          name: terraform-plan-${{ github.sha }}
+          path: "${{ github.workspace }}/github-terraform-framework/terraform/plan-output.txt"
+          retention-days: 90
+
+      - name: 'Terraform Apply'
+        working-directory: "${{ github.workspace }}/github-terraform-framework/terraform"
+        run: terraform apply -auto-approve tfplan
+
+      - name: 'Cleanup Workspace'
+        if: always()
+        run: |
+          rm -f "${{ github.workspace }}/github-terraform-framework/terraform/tfplan"
+          rm -rf "${{ github.workspace }}/${{ github.event.repository.name }}"
+          rm -rf "${{ github.workspace }}/github-terraform-framework"

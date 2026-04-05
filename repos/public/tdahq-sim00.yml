@@ -1,0 +1,9 @@
+tdahq-sim00:
+  description: "TDA HQ simulation environment configuration and deployment artifacts."
+  visibility: "public"
+  topics:
+    - simulation
+    - devops
+    - automation
+    - infrastructure-as-code
+    - devsecops
