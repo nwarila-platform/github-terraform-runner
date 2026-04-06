@@ -1,0 +1,11 @@
+start-uninstaller:
+  description: "Batch/PowerShell polyglot uninstaller for cleanly removing applications and their residual artifacts from Windows systems."
+  visibility: "public"
+  topics:
+    - powershell
+    - windows
+    - uninstaller
+    - automation
+    - batch
+    - sysadmin
+    - devops
