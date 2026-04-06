@@ -1,7 +1,0 @@
-github-sandbox:
-  description: "Experimental sandbox for prototyping, testing, and ad-hoc development."
-  visibility: "private"
-  topics:
-    - sandbox
-    - prototyping
-    - experiments
