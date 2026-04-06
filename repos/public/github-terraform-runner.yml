@@ -1,0 +1,11 @@
+github-terraform-runner:
+  description: "GitHub Actions runner for executing the shared Terraform framework against nwarila-platform org repositories."
+  visibility: "public"
+  topics:
+    - github
+    - terraform
+    - infrastructure-as-code
+    - github-actions
+    - ci-cd
+    - devsecops
+    - automation
