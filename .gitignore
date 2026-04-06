@@ -4,14 +4,11 @@
 # Keep core repo files.
 !/.gitignore
 !/.github/
-!/.github/workflows/
-!/.github/workflows/*.yml
+!/.github/**
 
-# Keep repo definition YAMLs.
+# Keep repo definition YAMLs (public only; private YAMLs live in S3).
 !/repos/
 !/repos/public/
-!/repos/public/*.yml
-!/repos/public/*.yaml
+!/repos/public/**
 !/repos/private/
 !/repos/private/.gitkeep
-
