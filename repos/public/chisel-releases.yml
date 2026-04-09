@@ -1,0 +1,18 @@
+chisel-releases:
+  description: "Version-controlled Ubuntu Chisel slice definitions for building minimal, distroless container base images with explicit per-slice dependency management."
+  visibility: "public"
+  fork: true
+  source_owner: "canonical"
+  source_repo: "chisel-releases"
+  topics:
+    - ubuntu
+    - chisel
+    - distroless
+    - containers
+    - oci-images
+    - minimal-images
+    - slice-definitions
+    - devsecops
+    - security
+    - supply-chain-security
+    - container-hardening
