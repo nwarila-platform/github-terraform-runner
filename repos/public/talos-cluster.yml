@@ -1,6 +1,6 @@
 talos-cluster:
   description: "Bare-metal Talos Linux Kubernetes platform with GitOps bootstrap, policy-as-code, and hardware-first operational documentation."
-  visibility: "public"
+  visibility: "private"
   topics:
     - talos
     - talos-linux
