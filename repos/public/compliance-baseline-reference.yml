@@ -1,6 +1,6 @@
 compliance-baseline-reference:
   description: "Reference archive of configuration and policy files from hardened systems, mapped to DISA STIG, CIS Benchmarks, PCI DSS, and other compliance frameworks for building secure baselines from scratch."
-  visibility: "public"
+  visibility: "private"
   topics:
     - linux
     - compliance

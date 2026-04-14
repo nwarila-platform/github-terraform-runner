@@ -1,6 +1,6 @@
 deploy-hello-world:
   description: "Minimal deployable service that proves the GitOps admission contract end to end with a stateless hello-world application."
-  visibility: "public"
+  visibility: "private"
   topics:
     - kubernetes
     - gitops

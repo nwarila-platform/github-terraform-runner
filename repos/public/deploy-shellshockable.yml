@@ -1,6 +1,6 @@
 deploy-shellshockable:
   description: "Deployable Shellshockable security demonstration service built on custom Ubuntu Chiseled base images for vulnerability awareness and container security validation."
-  visibility: "public"
+  visibility: "private"
   topics:
     - kubernetes
     - gitops

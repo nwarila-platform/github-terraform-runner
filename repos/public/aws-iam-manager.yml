@@ -1,6 +1,6 @@
 aws-iam-manager:
   description: "Terraform-driven AWS IAM management for roles, policies, and secure access patterns."
-  visibility: "public"
+  visibility: "private"
   topics:
     - aws
     - iam
