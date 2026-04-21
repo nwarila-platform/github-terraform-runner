@@ -34,11 +34,6 @@ talos-cluster:
         - "rhysd/actionlint@*"
         - "terraform-linters/setup-tflint@*"
 
-  codeowners: |
-    /.github/ @NWarila
-    /terraform/ @NWarila
-    /docs/ @NWarila
-
   environments:
 
     bootstrap-plan:
@@ -59,8 +54,6 @@ talos-cluster:
       deployment_branch_policy:
         protected_branches: true
         custom_branch_policies: false
-      variables:
-        AWS_REGION: us-east-1
 
     bootstrap-destroy:
       wait_timer: 15
@@ -80,5 +73,3 @@ talos-cluster:
       deployment_branch_policy:
         protected_branches: true
         custom_branch_policies: false
-      variables:
-        AWS_REGION: us-east-1
