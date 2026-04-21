@@ -51,6 +51,7 @@ jobs:
           mkdir -p "$DEST"
           aws s3 cp "$SRC/herowars_sim.yml"              "$DEST/herowars_sim.yml"
           aws s3 cp "$SRC/screenshot-gpt-blinkstick.yml"  "$DEST/screenshot-gpt-blinkstick.yml"
+          aws s3 cp "$SRC/herowars-engine-assets.yml"    "$DEST/herowars-engine-assets.yml"
 
       - name: 'Assemble Workspace'
         run: |
