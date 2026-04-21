@@ -20,7 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TF_VAR_github_owner: "nwarila-platform"
-      TF_VAR_github_is_organization: "true"
       TF_VAR_github_token: "${{ secrets.FINE_GRAINED_PERSONAL_ACCESS_TOKEN }}"
 
     steps:
