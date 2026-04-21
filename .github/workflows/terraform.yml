@@ -49,9 +49,10 @@ jobs:
           DEST="${{ github.workspace }}/${{ github.event.repository.name }}/repos/private"
           SRC="s3://${{ secrets.AWS_S3_BUCKET }}/nwarila-platform/${{ github.event.repository.name }}/repos"
           mkdir -p "$DEST"
-          aws s3 cp "$SRC/herowars_sim.yml"              "$DEST/herowars_sim.yml"
-          aws s3 cp "$SRC/screenshot-gpt-blinkstick.yml"  "$DEST/screenshot-gpt-blinkstick.yml"
-          aws s3 cp "$SRC/herowars-engine-assets.yml"    "$DEST/herowars-engine-assets.yml"
+          aws s3 cp "$SRC/herowars_sim.yml"                 "$DEST/herowars_sim.yml"
+          aws s3 cp "$SRC/screenshot-gpt-blinkstick.yml"     "$DEST/screenshot-gpt-blinkstick.yml"
+          aws s3 cp "$SRC/herowars-engine-assets.yml"        "$DEST/herowars-engine-assets.yml"
+          aws s3 cp "$SRC/herowars-simulator-ext-deobf.yml"  "$DEST/herowars-simulator-ext-deobf.yml"
 
       - name: 'Assemble Workspace'
         run: |
