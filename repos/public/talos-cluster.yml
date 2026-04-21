@@ -1,16 +1,84 @@
+#% ========================================================================================== %#
+#% = Repo: talos-cluster                                                                      %#
+#% ------------------------------------------------------------------------------------------ %#
+#% Source of truth: nwarila-platform/talos-cluster/PLAN.md                                    %#
+#% Inherits golden baseline rulesets from the framework. Only required_status_checks is        %#
+#% overridden to gate on terraform-static-ci.                                                  %#
+#% ========================================================================================== %#
+
 talos-cluster:
-  description: "Bare-metal Talos Linux Kubernetes platform with GitOps bootstrap, policy-as-code, and hardware-first operational documentation."
-  visibility: "private"
+  description: "Talos Linux bare-metal Kubernetes platform (6x Intel NUCs, 3 CP + 3 workers). Core services: Cilium, cert-manager, external-dns, Vault, ESO, ArgoCD, Longhorn, cloudflared."
+  homepage_url: "https://nickwarila.com"
+  visibility: public
+
   topics:
     - talos
-    - talos-linux
     - kubernetes
-    - bare-metal
     - gitops
     - argocd
-    - kyverno
     - cilium
-    - longhorn
+    - vault
     - homelab
-    - devsecops
+    - platform-engineering
     - infrastructure-as-code
+
+  actions:
+    enabled: true
+    allowed_actions: selected
+    allowed_actions_config:
+      github_owned_allowed: true
+      verified_allowed: true
+      patterns_allowed:
+        - "hashicorp/setup-terraform@*"
+        - "aws-actions/configure-aws-credentials@*"
+        - "rhysd/actionlint@*"
+        - "terraform-linters/setup-tflint@*"
+
+  codeowners: |
+    /.github/ @NWarila
+    /terraform/ @NWarila
+    /docs/ @NWarila
+
+  environments:
+
+    bootstrap-plan:
+      wait_timer: 0
+      can_admins_bypass: false
+      prevent_self_review: false
+      deployment_branch_policy:
+        protected_branches: true
+        custom_branch_policies: false
+
+    bootstrap:
+      wait_timer: 0
+      can_admins_bypass: false
+      prevent_self_review: false
+      reviewers:
+        users:
+          - 33955773
+      deployment_branch_policy:
+        protected_branches: true
+        custom_branch_policies: false
+      variables:
+        AWS_REGION: us-east-1
+
+    bootstrap-destroy:
+      wait_timer: 15
+      can_admins_bypass: false
+      prevent_self_review: false
+      reviewers:
+        users:
+          - 33955773
+      deployment_branch_policy:
+        protected_branches: true
+        custom_branch_policies: false
+
+    platform-apply:
+      wait_timer: 0
+      can_admins_bypass: false
+      prevent_self_review: false
+      deployment_branch_policy:
+        protected_branches: true
+        custom_branch_policies: false
+      variables:
+        AWS_REGION: us-east-1
