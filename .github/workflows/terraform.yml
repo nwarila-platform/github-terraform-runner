@@ -46,13 +46,21 @@ jobs:
 
       - name: 'Download Private Repo Definitions from S3'
         run: |
+          # Sync every *.yml / *.yaml under the private-repos prefix into
+          # repos/private/. Non-YAML objects in the prefix are ignored so
+          # stray files (notes, backups, .DS_Store) do not get treated as
+          # repo definitions. New repo YAMLs are picked up automatically
+          # without touching this workflow.
           DEST="${{ github.workspace }}/${{ github.event.repository.name }}/repos/private"
           SRC="s3://${{ secrets.AWS_S3_BUCKET }}/nwarila-platform/${{ github.event.repository.name }}/repos"
           mkdir -p "$DEST"
-          aws s3 cp "$SRC/herowars_sim.yml"                 "$DEST/herowars_sim.yml"
-          aws s3 cp "$SRC/screenshot-gpt-blinkstick.yml"     "$DEST/screenshot-gpt-blinkstick.yml"
-          aws s3 cp "$SRC/herowars-engine-assets.yml"        "$DEST/herowars-engine-assets.yml"
-          aws s3 cp "$SRC/herowars-simulator-ext-deobf.yml"  "$DEST/herowars-simulator-ext-deobf.yml"
+          aws s3 sync "$SRC/" "$DEST/" \
+            --exclude "*" \
+            --include "*.yml" \
+            --include "*.yaml" \
+            --only-show-errors
+          echo "Downloaded private repo definitions:"
+          ls -1 "$DEST"
 
       - name: 'Assemble Workspace'
         run: |
