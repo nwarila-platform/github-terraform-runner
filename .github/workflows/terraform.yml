@@ -46,19 +46,22 @@ jobs:
 
       - name: 'Download Private Repo Definitions from S3'
         run: |
-          # Sync every *.yml / *.yaml under the private-repos prefix into
-          # repos/private/. Non-YAML objects in the prefix are ignored so
-          # stray files (notes, backups, .DS_Store) do not get treated as
-          # repo definitions. New repo YAMLs are picked up automatically
-          # without touching this workflow.
+          # One-line-per-repo because the runner IAM role only grants
+          # s3:GetObject, not s3:ListBucket. `aws s3 sync` and
+          # `aws s3 cp --recursive` both need ListBucket to enumerate
+          # objects; explicit `aws s3 cp <key>` does not. Switch to
+          # sync once the role is widened (tracked separately).
           DEST="${{ github.workspace }}/${{ github.event.repository.name }}/repos/private"
           SRC="s3://${{ secrets.AWS_S3_BUCKET }}/nwarila-platform/${{ github.event.repository.name }}/repos"
           mkdir -p "$DEST"
-          aws s3 sync "$SRC/" "$DEST/" \
-            --exclude "*" \
-            --include "*.yml" \
-            --include "*.yaml" \
-            --only-show-errors
+          for name in \
+              herowars_sim \
+              screenshot-gpt-blinkstick \
+              herowars-engine-assets \
+              herowars-simulator-ext-deobf \
+              opm-sim ; do
+            aws s3 cp "$SRC/${name}.yml" "$DEST/${name}.yml" --only-show-errors
+          done
           echo "Downloaded private repo definitions:"
           ls -1 "$DEST"
 
