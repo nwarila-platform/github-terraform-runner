@@ -1,14 +1,41 @@
-# Ignore everything by default.
+# Default-deny: every tracked file must be explicitly whitelisted below.
+# No wildcard allows; adding a new tracked file to this repo also requires
+# adding its exact path here. This makes the tracked surface auditable at a
+# glance and prevents accidental inclusion via globbing.
 **
 
-# Keep core repo files.
+# Repository metadata.
 !/.gitignore
-!/.github/
-!/.github/**
 
-# Keep repo definition YAMLs (public only; private YAMLs live in S3).
+# CI configuration.
+!/.github/
+!/.github/CODEOWNERS
+!/.github/workflows/
+!/.github/workflows/terraform.yml
+
+# Public repo definitions — managed in this repo, synced into Terraform.
 !/repos/
 !/repos/public/
-!/repos/public/**
+!/repos/public/.github.yml
+!/repos/public/ansible-framework.yml
+!/repos/public/aws-terraform-framework.yml
+!/repos/public/batch-powershell-polyglot.yml
+!/repos/public/chisel-releases.yml
+!/repos/public/compliance-baseline-reference.yml
+!/repos/public/deploy-hello-world.yml
+!/repos/public/deploy-shellshockable.yml
+!/repos/public/deploy-whoami.yml
+!/repos/public/github-terraform-framework.yml
+!/repos/public/github-terraform-runner.yml
+!/repos/public/packer-required-version.yml
+!/repos/public/proxmox-packer-framework.yml
+!/repos/public/proxmox-terraform-framework.yml
+!/repos/public/secure-packer-bootstrapper.yml
+!/repos/public/secure-rockylinux9-template.yml
+!/repos/public/start-uninstaller.yml
+!/repos/public/talos-cluster.yml
+!/repos/public/tdahq-sim00.yml
+
+# Private repo definitions — YAMLs live in S3; only the directory marker is tracked here.
 !/repos/private/
 !/repos/private/.gitkeep
