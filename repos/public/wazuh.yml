@@ -1,0 +1,15 @@
+wazuh:
+  description: "Air-gapped Wazuh full-stack deployment on a STIG-hardened RHEL 8 VM. Ansible-driven deploy/diagnose/revert iteration loop targeting an internet-isolated Hyper-V Gen2 VM."
+  visibility: "public"
+  topics:
+    - wazuh
+    - siem
+    - security
+    - ansible
+    - stig
+    - hardening
+    - compliance
+    - rhel
+    - hyper-v
+    - air-gapped
+    - automation

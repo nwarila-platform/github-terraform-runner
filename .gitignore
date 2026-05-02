@@ -35,6 +35,7 @@
 !/repos/public/start-uninstaller.yml
 !/repos/public/talos-cluster.yml
 !/repos/public/tdahq-sim00.yml
+!/repos/public/wazuh.yml
 
 # Private repo definitions — YAMLs live in S3; only the directory marker is tracked here.
 !/repos/private/
