@@ -1,0 +1,17 @@
+terraform-proxmox-iso-manager-framework:
+  description: "Terraform module that manages the lifecycle of installer ISOs on Proxmox VE storage. Imported by per-OS Packer template repos to declaratively pin, download, and SHA-verify the ISO their build consumes."
+  visibility: "public"
+  topics:
+    - proxmox
+    - terraform
+    - terraform-module
+    - iso
+    - iso-management
+    - packer
+    - vm-templates
+    - infrastructure-as-code
+    - virtualization
+    - devsecops
+    - gitops
+    - ci-cd
+    - security
