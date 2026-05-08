@@ -35,6 +35,7 @@
 !/.github/workflows/
 !/.github/workflows/auto-merge.yaml
 !/.github/workflows/release-evidence.yaml
+!/.github/workflows/org-adr-sync.yaml
 !/.github/workflows/codeql.yaml
 !/.github/workflows/pr-validation.yaml
 !/.github/workflows/release-please.yaml
