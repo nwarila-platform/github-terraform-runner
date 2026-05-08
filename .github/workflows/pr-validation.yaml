@@ -1,0 +1,37 @@
+name: PR Validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-validation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    uses: NWarila/terraform-template/.github/workflows/reusable-terraform-validation.yaml@bead9a47e36144999de0bfb1b476860d9fad8196
+    with:
+      # renovate: datasource=github-releases depName=hashicorp/terraform extractVersion=^v(?<version>.*)$ versioning=hashicorp
+      terraform_version: "1.14.3"
+      # renovate: datasource=github-releases depName=terraform-linters/tflint extractVersion=^v(?<version>.*)$
+      tflint_version: "0.59.1"
+      # renovate: datasource=github-releases depName=terraform-docs/terraform-docs extractVersion=^v(?<version>.*)$
+      terraform_docs_version: "0.20.0"
+      # renovate: datasource=github-releases depName=open-policy-agent/opa extractVersion=^v(?<version>.*)$
+      opa_version: "1.10.0"
+      template_ref: bead9a47e36144999de0bfb1b476860d9fad8196
+      mode: runner
+      framework_repo: nwarila-platform/github-terraform-framework
+      # Renovate keeps this in lockstep with terraform-deploy.yaml.
+      framework_ref: 2fe1bceb4f2aadfab703244f899e378fa738d1d2
+      overlay_paths: |
+        repos/public/=>terraform/repos/public/
+        tests/fixtures/repos/private/=>terraform/repos/private/

@@ -1,14 +1,107 @@
-# Ignore everything by default.
+# Default-deny: every tracked file must be explicitly allowlisted below.
+# No wildcard allows. Adding a tracked file requires adding its exact path
+# here too — keeps the tracked surface auditable at a glance.
 **
 
-# Keep core repo files.
-!/.gitignore
-!/.github/
-!/.github/**
+# ----- [ Repository self-management ] -------------------------------------------------------------
 
-# Keep repo definition YAMLs (public only; private YAMLs live in S3).
+!/.gitignore
+!/.gitattributes
+!/.editorconfig
+!/.markdownlint-cli2.jsonc
+!/.pre-commit-config.yaml
+!/.template-type
+!/.terraform-docs.yml
+!/.tflint.hcl
+!/Makefile
+
+# ----- [ Top-level documentation ] ----------------------------------------------------------------
+
+!/README.md
+!/LICENSE
+!/CHANGELOG.md
+
+# ----- [ Release automation ] ---------------------------------------------------------------------
+
+!/release-please-config.json
+!/.release-please-manifest.json
+
+# ----- [ GitHub configuration ] -------------------------------------------------------------------
+
+!/.github/
+!/.github/CODEOWNERS
+!/.github/PULL_REQUEST_TEMPLATE.md
+!/.github/renovate.json5
+!/.github/workflows/
+!/.github/workflows/auto-merge.yaml
+!/.github/workflows/codeql.yaml
+!/.github/workflows/pr-validation.yaml
+!/.github/workflows/release-please.yaml
+!/.github/workflows/scorecard.yaml
+!/.github/workflows/security.yaml
+!/.github/workflows/template-sync.yaml
+!/.github/workflows/terraform-deploy.yaml
+
+# ----- [ Documentation (Diátaxis) ] ---------------------------------------------------------------
+
+!/docs/
+!/docs/README.md
+!/docs/explanation/
+!/docs/explanation/architecture.md
+!/docs/explanation/testing-strategy.md
+!/docs/explanation/threat-model.md
+!/docs/reference/
+!/docs/reference/invariants.md
+!/docs/reference/release-gates.md
+!/docs/how-to/
+!/docs/how-to/develop-this-module.md
+!/docs/decision-records/
+!/docs/decision-records/README.md
+
+# ----- [ Tooling & policies ] ---------------------------------------------------------------------
+
+!/tools/
+!/tools/check_docs_layout.py
+!/policies/
+!/policies/opa/
+!/policies/opa/.gitkeep
+
+# ----- [ Repo definitions ] -----------------------------------------------------------------------
+# Public YAMLs are checked in and overlaid onto the framework at deploy time.
+# Private YAMLs live in S3 (private metadata); only .gitkeep is tracked.
+
 !/repos/
 !/repos/public/
-!/repos/public/**
+!/repos/public/.gitkeep
+!/repos/public/.github.yml
+!/repos/public/ansible-framework.yml
+!/repos/public/aws-terraform-framework.yml
+!/repos/public/batch-powershell-polyglot.yml
+!/repos/public/chisel-releases.yml
+!/repos/public/compliance-baseline-reference.yml
+!/repos/public/deploy-hello-world.yml
+!/repos/public/deploy-shellshockable.yml
+!/repos/public/deploy-whoami.yml
+!/repos/public/github-terraform-framework.yml
+!/repos/public/github-terraform-runner.yml
+!/repos/public/packer-required-version.yml
+!/repos/public/proxmox-packer-framework.yml
+!/repos/public/proxmox-terraform-framework.yml
+!/repos/public/secure-packer-bootstrapper.yml
+!/repos/public/secure-rockylinux9-template.yml
+!/repos/public/start-uninstaller.yml
+!/repos/public/talos-cluster.yml
+!/repos/public/tdahq-sim00.yml
+!/repos/public/terraform-proxmox-iso-manager-framework.yml
 !/repos/private/
 !/repos/private/.gitkeep
+
+# ----- [ Test fixtures (public-safe; used by pr-validation) ] -------------------------------------
+
+!/tests/
+!/tests/fixtures/
+!/tests/fixtures/repos/
+!/tests/fixtures/repos/public/
+!/tests/fixtures/repos/public/example.yml
+!/tests/fixtures/repos/private/
+!/tests/fixtures/repos/private/example.yml

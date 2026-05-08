@@ -1,0 +1,22 @@
+name: Template Sync
+# Caller for nwarila/terraform-template reusable-template-sync workflow.
+# Renovate manages the SHA pin (both `uses:` and `template_ref:`).
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: template-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    uses: NWarila/terraform-template/.github/workflows/reusable-template-sync.yaml@bead9a47e36144999de0bfb1b476860d9fad8196
+    with:
+      template_ref: bead9a47e36144999de0bfb1b476860d9fad8196

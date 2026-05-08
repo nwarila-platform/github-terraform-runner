@@ -1,0 +1,36 @@
+name: Deploy GitHub Terraform
+
+# Applies github-terraform-framework against this runner's repos/ data.
+# Replaces the bespoke terraform.yml that previously lived here; the deploy
+# logic now lives in nwarila-platform/github-terraform-framework's reusable
+# workflow so all three runners share one source of truth.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "repos/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: tf-${{ github.event.repository.name }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@2fe1bceb4f2aadfab703244f899e378fa738d1d2
+    with:
+      github_owner: nwarila-platform
+      # renovate: datasource=github-releases depName=hashicorp/terraform extractVersion=^v(?<version>.*)$ versioning=hashicorp
+      terraform_version: "1.14.3"
+      private_repos_source: s3-sync
+      private_repos_s3_url: s3://${{ secrets.AWS_S3_BUCKET }}/nwarila-platform/${{ github.event.repository.name }}/repos
+    secrets:
+      aws_role_arn: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+      aws_region: ${{ secrets.AWS_REGION }}
+      backend_bucket: ${{ secrets.AWS_S3_BUCKET }}
+      github_token: ${{ secrets.FINE_GRAINED_PERSONAL_ACCESS_TOKEN }}
