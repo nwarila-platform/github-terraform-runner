@@ -34,6 +34,7 @@
 !/.github/renovate.json5
 !/.github/workflows/
 !/.github/workflows/auto-merge.yaml
+!/.github/workflows/release-evidence.yaml
 !/.github/workflows/codeql.yaml
 !/.github/workflows/pr-validation.yaml
 !/.github/workflows/release-please.yaml
