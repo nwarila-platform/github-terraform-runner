@@ -20,7 +20,7 @@ jobs:
     uses: NWarila/terraform-template/.github/workflows/reusable-terraform-validation.yaml@bead9a47e36144999de0bfb1b476860d9fad8196
     with:
       # renovate: datasource=github-releases depName=hashicorp/terraform extractVersion=^v(?<version>.*)$ versioning=hashicorp
-      terraform_version: "1.14.3"
+      terraform_version: "1.15.1"
       # renovate: datasource=github-releases depName=terraform-linters/tflint extractVersion=^v(?<version>.*)$
       tflint_version: "0.59.1"
       # renovate: datasource=github-releases depName=terraform-docs/terraform-docs extractVersion=^v(?<version>.*)$
