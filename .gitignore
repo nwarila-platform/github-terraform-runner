@@ -93,6 +93,7 @@
 !/repos/public/github-terraform-framework.yml
 !/repos/public/github-terraform-runner.yml
 !/repos/public/packer-required-version.yml
+!/repos/public/proxmox-iso-manager.yml
 !/repos/public/proxmox-packer-framework.yml
 !/repos/public/proxmox-terraform-framework.yml
 !/repos/public/secure-packer-bootstrapper.yml

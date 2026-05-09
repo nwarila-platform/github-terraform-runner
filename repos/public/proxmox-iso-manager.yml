@@ -1,0 +1,49 @@
+proxmox-iso-manager:
+  description: "Terraform runner that pins, downloads, verifies, and publishes release metadata for supported Rocky Linux and Ubuntu installer ISOs on Proxmox VE storage."
+  visibility: "public"
+  topics:
+    - proxmox
+    - terraform
+    - iso-management
+    - rocky-linux
+    - ubuntu
+    - packer
+    - vm-templates
+    - infrastructure-as-code
+    - devsecops
+    - gitops
+    - ci-cd
+    - security
+
+  actions:
+    enabled: true
+    allowed_actions: selected
+    allowed_actions_config:
+      github_owned_allowed: true
+      verified_allowed: true
+      patterns_allowed:
+        - "actions/checkout@*"
+        - "actions/upload-artifact@*"
+        - "actions/download-artifact@*"
+        - "aws-actions/configure-aws-credentials@*"
+        - "hashicorp/setup-terraform@*"
+
+  environments:
+    terraform-plan:
+      wait_timer: 0
+      can_admins_bypass: false
+      prevent_self_review: false
+      deployment_branch_policy:
+        protected_branches: true
+        custom_branch_policies: false
+
+    terraform-apply:
+      wait_timer: 0
+      can_admins_bypass: false
+      prevent_self_review: false
+      reviewers:
+        users:
+          - 33955773
+      deployment_branch_policy:
+        protected_branches: true
+        custom_branch_policies: false
