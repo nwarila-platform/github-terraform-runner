@@ -1,0 +1,18 @@
+---
+proxmox-media-infra:
+  description: >-
+    Proxmox media lifecycle and catalog publishing for Packer framework builds.
+  visibility: "public"
+  topics:
+    - proxmox
+    - terraform
+    - iso
+    - media-catalog
+    - packer
+    - vm-templates
+    - infrastructure-as-code
+    - virtualization
+    - devsecops
+    - gitops
+    - ci-cd
+    - security
