@@ -1,0 +1,15 @@
+proxmox-cluster:
+  description: "Infrastructure-as-code for the homelab Proxmox VE host/cluster: datacenter config, storage pools, host networking, PBS backups, realms/ACLs/API tokens, and clustering."
+  homepage_url: "https://nickwarila.com"
+  visibility: "public"
+  topics:
+    - proxmox
+    - virtualization
+    - hypervisor
+    - homelab
+    - infrastructure-as-code
+    - terraform
+    - devsecops
+    - gitops
+    - platform-engineering
+    - security
