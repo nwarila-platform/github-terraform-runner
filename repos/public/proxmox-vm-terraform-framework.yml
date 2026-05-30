@@ -1,0 +1,15 @@
+proxmox-vm-terraform-framework:
+  description: "Terraform framework for provisioning and managing Proxmox VE guests (virtual machines and LXC containers) on an existing cluster via the bpg/proxmox provider — the guest layer above proxmox-cluster and the proxmox-packer-framework templates."
+  visibility: "public"
+  topics:
+    - proxmox
+    - terraform
+    - infrastructure-as-code
+    - virtualization
+    - virtual-machines
+    - lxc
+    - cloud-init
+    - devsecops
+    - gitops
+    - ci-cd
+    - security
