@@ -1,0 +1,17 @@
+chiseled-aws-signing-helper:
+  description: "Hardened Ubuntu-chiseled OCI image of the AWS IAM Roles Anywhere signing helper; the serve-mode sidecar that vends short-lived STS credentials for HashiCorp Vault KMS auto-unseal on self-hosted clusters."
+  visibility: "public"
+  topics:
+    - aws
+    - iam-roles-anywhere
+    - vault
+    - kms-auto-unseal
+    - chisel
+    - distroless
+    - oci-images
+    - container-hardening
+    - supply-chain-security
+    - sigstore
+    - cosign
+    - sbom
+    - devsecops
