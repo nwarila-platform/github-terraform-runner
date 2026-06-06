@@ -2,16 +2,6 @@ name: 'Deploy GitHub Terraform'
 
 on:
   workflow_dispatch:
-    inputs:
-      skip_refresh:
-        description: >-
-          One-time heal only. Runs plan/apply with -refresh=false to clear
-          phantom state (repos deleted out-of-band that remain in state and make
-          the normal refresh 404). Skips drift detection for this run — use
-          solely to recover a plan that fails on 404 refresh errors, then return
-          to normal runs.
-        type: boolean
-        default: false
   push:
     branches: [main]
     paths:
@@ -97,12 +87,7 @@ jobs:
       - name: 'Terraform Plan'
         working-directory: "${{ github.workspace }}/github-terraform-framework/terraform"
         run: |
-          REFRESH_FLAG=""
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.skip_refresh }}" = "true" ]; then
-            REFRESH_FLAG="-refresh=false"
-            echo "::warning::Terraform Plan running with -refresh=false (one-time phantom-state heal); drift detection is skipped this run."
-          fi
-          terraform plan ${REFRESH_FLAG} -out=tfplan
+          terraform plan -out=tfplan
           terraform show -no-color tfplan > plan-output.txt
 
       - name: 'Archive Plan Output'
