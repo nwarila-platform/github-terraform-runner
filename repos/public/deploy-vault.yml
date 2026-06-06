@@ -1,5 +1,5 @@
 deploy-vault:
-  description: "GitOps deployment configuration for HashiCorp Vault on the Talos Kubernetes cluster using the custom chiseled-hashicorp-vault image."
+  description: "GitOps deployment configuration for HashiCorp Vault on the Talos Kubernetes cluster, using the custom ubi9-hashicorp-vault image with AWS KMS auto-unseal."
   visibility: "public"
   topics:
     - vault
