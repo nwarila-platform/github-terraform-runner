@@ -1,0 +1,16 @@
+targetstate:
+  description: "Target State Configuration framework for DSC-style Windows compliance resources and STIG-aligned system hardening."
+  visibility: "public"
+  topics:
+    - windows
+    - powershell
+    - desired-state-configuration
+    - configuration-management
+    - compliance
+    - stig
+    - disa
+    - hardening
+    - security
+    - devsecops
+    - policy-as-code
+    - automation
