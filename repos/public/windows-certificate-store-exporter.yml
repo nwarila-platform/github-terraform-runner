@@ -1,0 +1,13 @@
+windows-certificate-store-exporter:
+  description: "PowerShell utility for exporting certificates from the Windows LocalMachine certificate store to .crt files for backup, inspection, and trust distribution."
+  visibility: "public"
+  topics:
+    - windows
+    - powershell
+    - certificates
+    - certificate-store
+    - localmachine
+    - crt
+    - pki
+    - sysadmin
+    - automation
