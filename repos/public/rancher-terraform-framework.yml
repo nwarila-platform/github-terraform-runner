@@ -1,0 +1,14 @@
+rancher-terraform-framework:
+  description: "Terraform framework for deploying and managing Rancher-managed container workloads."
+  visibility: "public"
+  topics:
+    - rancher
+    - terraform
+    - kubernetes
+    - helm
+    - containers
+    - infrastructure-as-code
+    - devsecops
+    - gitops
+    - ci-cd
+    - security
