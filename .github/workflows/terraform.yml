@@ -21,10 +21,10 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@afd0162a1cebd3c2634db4735ae25000d81143e4  # GS-03a reusable workflow fix; framework_ref below keeps GS-03 on PRE-#74 config
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@a8c17a921ada0e12a70001cf70c1c4fc1597a705  # F1: plan_only fix; config matches live last_push_approval=true, so no governance change
     with:
       github_owner: ${{ github.repository_owner }}
-      framework_ref: "37602cb8ff5d22aaebf4011eb02639de2ddbd6e3"
+      framework_ref: "a8c17a921ada0e12a70001cf70c1c4fc1597a705"
       terraform_version: "1.15.4"
       private_repos_files: ${{ vars.PRIVATE_REPOS_FILES }}
       plan_only: ${{ github.event_name == 'pull_request' }}
