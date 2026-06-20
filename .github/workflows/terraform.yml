@@ -10,6 +10,12 @@ on:
     paths:
       - "terraform/**"
   workflow_dispatch:
+    inputs:
+      apply:
+        description: Apply the previously reviewed real-state plan.
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -21,13 +27,14 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@a8c17a921ada0e12a70001cf70c1c4fc1597a705  # F1: plan_only fix; config matches live last_push_approval=true, so no governance change
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@gs-03c-reusable-apply-gate  # GS-03c apply gate; keep framework_ref at F1 below for governance-neutral config
     with:
       github_owner: ${{ github.repository_owner }}
       framework_ref: "a8c17a921ada0e12a70001cf70c1c4fc1597a705"
       terraform_version: "1.15.4"
       private_repos_files: ${{ vars.PRIVATE_REPOS_FILES }}
       plan_only: ${{ github.event_name == 'pull_request' }}
+      apply: ${{ github.event_name == 'workflow_dispatch' && inputs.apply }}
     secrets:
       aws_role_arn:    ${{ secrets.AWS_ROLE_TO_ASSUME }}
       aws_region:      ${{ secrets.AWS_REGION }}
