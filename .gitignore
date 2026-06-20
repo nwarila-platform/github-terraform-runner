@@ -7,8 +7,8 @@
 !/.github/**
 
 # Keep repo definition YAMLs (public only; private YAMLs live in S3).
-!/repos/
-!/repos/public/
-!/repos/public/**
-!/repos/private/
-!/repos/private/.gitkeep
+!/terraform/
+!/terraform/public/
+!/terraform/public/**
+!/terraform/private/
+!/terraform/private/.gitkeep
