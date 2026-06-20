@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@37602cb8ff5d22aaebf4011eb02639de2ddbd6e3  # framework GS-01 baseline - pinned PRE org-wide last-push-approval (#74); GS-05 bumps this deliberately
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@afd0162a1cebd3c2634db4735ae25000d81143e4  # GS-03a reusable workflow fix; framework_ref below keeps GS-03 on PRE-#74 config
     with:
       github_owner: ${{ github.repository_owner }}
       framework_ref: "37602cb8ff5d22aaebf4011eb02639de2ddbd6e3"
