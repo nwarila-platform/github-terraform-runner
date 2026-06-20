@@ -1,5 +1,5 @@
 windows-certificate-store-exporter:
-  description: "PowerShell utility for exporting certificates from the Windows LocalMachine certificate store to .crt files for backup, inspection, and trust distribution."
+  description: "PowerShell utility for exporting CA certificates from the Windows LocalMachine certificate store to a deterministic PEM trust bundle for backup, inspection, and trust distribution."
   visibility: "public"
   required_checks:
     - "build (windows-powershell51)"
@@ -12,7 +12,7 @@ windows-certificate-store-exporter:
     - certificates
     - certificate-store
     - localmachine
-    - crt
+    - pem
     - pki
     - sysadmin
     - automation
