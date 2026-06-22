@@ -27,12 +27,13 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@dfd147e0585be519d09e119371c70979c5c4c502  # F2: merged apply gate; keep framework_ref at F1 below for governance-neutral config
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@5f7d5c769df216de1f42f4fa7e0b0935f32dfc22  # GS-03d fix branch; repin to merge SHA before merge
     with:
       github_owner: ${{ github.repository_owner }}
       framework_ref: "a8c17a921ada0e12a70001cf70c1c4fc1597a705"
       terraform_version: "1.15.4"
-      private_repos_files: ${{ vars.PRIVATE_REPOS_FILES }}
+      # Required: default tail is terraform/private, but this data lives under repos; dropping this reintroduces the blinkstick archival bug.
+      private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
       plan_only: ${{ github.event_name == 'pull_request' }}
       apply: ${{ github.event_name == 'workflow_dispatch' && inputs.apply }}
     secrets:
