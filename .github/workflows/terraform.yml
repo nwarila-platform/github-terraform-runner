@@ -27,7 +27,7 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@5f7d5c769df216de1f42f4fa7e0b0935f32dfc22  # GS-03d fix branch; repin to merge SHA before merge
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@17b478b9cbe40380eb6ac8df57fbc0a74da2da55  # GS-03d merge
     with:
       github_owner: ${{ github.repository_owner }}
       framework_ref: "a8c17a921ada0e12a70001cf70c1c4fc1597a705"
