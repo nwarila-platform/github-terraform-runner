@@ -27,7 +27,7 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@gs-03c-reusable-apply-gate  # GS-03c apply gate; keep framework_ref at F1 below for governance-neutral config
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@dfd147e0585be519d09e119371c70979c5c4c502  # F2: merged apply gate; keep framework_ref at F1 below for governance-neutral config
     with:
       github_owner: ${{ github.repository_owner }}
       framework_ref: "a8c17a921ada0e12a70001cf70c1c4fc1597a705"
