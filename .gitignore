@@ -12,3 +12,7 @@
 !/terraform/public/**
 !/terraform/private/
 !/terraform/private/.gitkeep
+
+# Keep runner-level framework overrides (org settings + non-sensitive vars).
+# Non-sensitive only: the billing email is delivered via the ORG_BILLING_EMAIL secret.
+!/terraform/org.auto.tfvars

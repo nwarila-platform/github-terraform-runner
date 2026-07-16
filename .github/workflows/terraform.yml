@@ -27,17 +27,19 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@17b478b9cbe40380eb6ac8df57fbc0a74da2da55  # GS-03d merge
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@face31b27454b0cd681ffb471c27757f17264c4f  # post-#85 (org control plane + plumbing + plan-leak fix)
     with:
       github_owner: ${{ github.repository_owner }}
-      framework_ref: "a8c17a921ada0e12a70001cf70c1c4fc1597a705"
+      github_is_organization: true
+      framework_ref: "face31b27454b0cd681ffb471c27757f17264c4f"
       terraform_version: "1.15.4"
       # Required: default tail is terraform/private, but this data lives under repos; dropping this reintroduces the blinkstick archival bug.
       private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
       plan_only: ${{ github.event_name == 'pull_request' }}
       apply: ${{ github.event_name == 'workflow_dispatch' && inputs.apply }}
     secrets:
-      aws_role_arn:    ${{ secrets.AWS_ROLE_TO_ASSUME }}
-      aws_region:      ${{ secrets.AWS_REGION }}
-      backend_bucket:  ${{ secrets.AWS_S3_BUCKET }}
-      gh_token:        ${{ secrets.FINE_GRAINED_PERSONAL_ACCESS_TOKEN }}
+      aws_role_arn:      ${{ secrets.AWS_ROLE_TO_ASSUME }}
+      aws_region:        ${{ secrets.AWS_REGION }}
+      backend_bucket:    ${{ secrets.AWS_S3_BUCKET }}
+      gh_token:          ${{ secrets.FINE_GRAINED_PERSONAL_ACCESS_TOKEN }}
+      org_billing_email: ${{ secrets.ORG_BILLING_EMAIL }}
