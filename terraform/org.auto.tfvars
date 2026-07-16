@@ -25,7 +25,10 @@ org_settings = {
 # the org admin. Per-repo `codeowners:` in a repo's YAML still overrides this.
 repo_default_codeowners = "* @NWarila\n"
 
-# Do not pin code_security: the provider never reads it back
-# (integrations/terraform-provider-github#3501), so pinning it produces a
-# permanent diff. It stays unmanaged here; the paid feature is off in practice.
-security_pin_exclude = ["code_security"]
+# Do not manage the GitHub Advanced Security feature family: this org has no
+# GHAS (Team plan), so the API rejects setting these even to "disabled"
+# (422 "Updating Advanced Security ... not available"), and code_security also
+# never reads back (provider #3501). They are off in practice and unmanageable
+# here. secret_scanning + push_protection stay managed (the real paid-feature
+# lockdown on private repos).
+security_pin_exclude = ["advanced_security", "code_security", "secret_scanning_ai_detection", "secret_scanning_non_provider_patterns"]
