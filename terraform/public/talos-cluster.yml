@@ -1,6 +1,7 @@
 # Source of truth: nwarila-platform/talos-cluster/PLAN.md
-# Inherits golden baseline rulesets from the framework. Only required_status_checks is
-# overridden to gate on terraform-static-ci.
+# Rulesets are declared explicitly below. NOTE: `rules` REPLACES the framework
+# default (fallback, not merge), so the three framework rulesets are cloned
+# verbatim alongside the new Required Status Checks ruleset.
 #
 # Environment protections: this repo is PUBLIC, so every protection knob
 # below (`can_admins_bypass: false`, required reviewers, `wait_timer: 15`)
@@ -35,6 +36,116 @@ talos-cluster:
         - "aws-actions/configure-aws-credentials@*"
         - "rhysd/actionlint@*"
         - "terraform-linters/setup-tflint@*"
+
+  # ------------------------------------------------------------------------
+  # Rulesets.
+  #
+  # ⚠️ `rules` REPLACES the framework default wholesale - the framework does
+  # `rules = try(repository.rules, var.repo_default_rules)` (github-terraform-
+  # framework terraform/30-locals.tf), a FALLBACK not a merge. Declaring this
+  # key therefore drops every default ruleset unless they are reproduced here.
+  # The three below are cloned verbatim from var.repo_default_rules
+  # (11-variables.github.tf) and cross-checked against the live rulesets on
+  # this repo (Branch Safety 14711262, Pull Request Gate 14711253, Release Tag
+  # Protection 15521212) so this change adds a gate without silently removing
+  # signature, linear-history or tag protection.
+  #
+  # Keep bypass_actors RepositoryRole 5 (admin, always) on every ruleset: it is
+  # the escape hatch if a required check name ever drifts and blocks merges.
+  # ------------------------------------------------------------------------
+  rules:
+    # --- cloned verbatim from framework defaults ---
+    - name: "Branch Safety"
+      target: "branch"
+      enforcement: "active"
+      bypass_actors:
+        - actor_id: 5
+          actor_type: "RepositoryRole"
+          bypass_mode: "always"
+      conditions:
+        include: ["~DEFAULT_BRANCH"]
+        exclude: []
+      rules:
+        creation: true
+        update: true
+        deletion: true
+        non_fast_forward: true
+        required_linear_history: true
+        required_signatures: true
+
+    - name: "Pull Request Gate"
+      target: "branch"
+      enforcement: "active"
+      bypass_actors:
+        - actor_id: 5
+          actor_type: "RepositoryRole"
+          bypass_mode: "always"
+      conditions:
+        include: ["~DEFAULT_BRANCH"]
+        exclude: []
+      rules:
+        pull_request:
+          allowed_merge_methods: ["squash"]
+          dismiss_stale_reviews_on_push: true
+          require_code_owner_review: true
+          require_last_push_approval: true
+          required_approving_review_count: 1
+          required_review_thread_resolution: true
+
+    - name: "Release Tag Protection"
+      target: "tag"
+      enforcement: "active"
+      bypass_actors:
+        - actor_id: 5
+          actor_type: "RepositoryRole"
+          bypass_mode: "always"
+      conditions:
+        include: ["~ALL"]
+        exclude: []
+      rules:
+        deletion: true
+        non_fast_forward: true
+        required_signatures: true
+
+    # --- NEW: B4, guardrails become blocking ---
+    #
+    # Deliberately a SEPARATE ruleset rather than folded into Pull Request
+    # Gate, so the three proven rulesets above stay byte-identical to the
+    # framework default and any problem here is isolated to this one object.
+    #
+    # Every context below was verified to report on ALL of the last five PRs
+    # (#349-#353) via the check-runs API - requiring a check that only runs
+    # sometimes would deadlock merges. Names are taken from live check runs,
+    # not from workflow YAML: "Validate Flux Kustomize" carries the guard that
+    # was renamed this week, and a stale name here is exactly what would lock
+    # the repo.
+    #
+    # strict_required_status_checks_policy is false on purpose: true forces
+    # every PR to be up to date with the default branch before merging, which
+    # adds a rebase cycle per merge. Revisit post-MVP.
+    - name: "Required Status Checks"
+      target: "branch"
+      enforcement: "active"
+      bypass_actors:
+        - actor_id: 5
+          actor_type: "RepositoryRole"
+          bypass_mode: "always"
+      conditions:
+        include: ["~DEFAULT_BRANCH"]
+        exclude: []
+      rules:
+        required_status_checks:
+          strict_required_status_checks_policy: false
+          do_not_enforce_on_create: true
+          required_check:
+            - context: "Validate Flux Kustomize"
+            - context: "Validate Configs"
+            - context: "Config Audit"
+            - context: "Lint"
+            - context: "Secret Scan"
+            - context: "Gitleaks Secret Scan"
+            - context: "Maintenance ISO Guard"
+            - context: "org-adr / verify"
 
   environments:
     bootstrap-plan:
