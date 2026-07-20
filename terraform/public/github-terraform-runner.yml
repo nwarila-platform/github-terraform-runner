@@ -9,3 +9,41 @@ github-terraform-runner:
     - ci-cd
     - devsecops
     - automation
+
+  # ------------------------------------------------------------------------
+  # Actions allow-list.
+  #
+  # This repository holds the credentials that manage every other repository in
+  # the org, and until now it ran the org's most permissive Actions policy
+  # (`allowed_actions: all`). Most privileged, weakest policy.
+  #
+  # Pre-flight (2026-07-20). The caller's policy governs actions inside a called
+  # reusable workflow, so the set below is the TRANSITIVE closure, not just what
+  # this repo's own workflow references:
+  #
+  #   direct     nwarila-platform/github-terraform-framework/.github/workflows/
+  #              reusable-terraform-deploy.yaml@<sha>   -> same-owner auto-allow
+  #   transitive actions/checkout@<sha>                 -> github_owned_allowed
+  #              aws-actions/configure-aws-credentials  -> pattern below
+  #              hashicorp/setup-terraform              -> pattern below
+  #
+  # Four references, all SHA-pinned upstream. Deliberately scoped to the deploy
+  # workflow only: the framework's OTHER reusable workflows pull in gitleaks via
+  # `uses: docker://...`, and whether patterns_allowed governs `docker://` refs
+  # at all is undocumented and unverified. This repo never calls those, so the
+  # question does not arise here - do not widen this list by copying the
+  # framework's set without answering it first.
+  #
+  # verified_allowed is false for the same reason as talos-cluster: no supported
+  # API resolves whether a given action would qualify, so while it is true the
+  # effective allow-list cannot be audited.
+  # ------------------------------------------------------------------------
+  actions:
+    enabled: true
+    allowed_actions: selected
+    allowed_actions_config:
+      github_owned_allowed: true
+      verified_allowed: false
+      patterns_allowed:
+        - "aws-actions/configure-aws-credentials@*"
+        - "hashicorp/setup-terraform@*"
