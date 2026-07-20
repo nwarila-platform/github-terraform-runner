@@ -32,6 +32,12 @@ talos-cluster:
       github_owned_allowed: true
       verified_allowed: true
       patterns_allowed:
+        # REQUIRED: org-adr-sync.yaml posts the `org-adr / verify` check, which is
+        # a REQUIRED status check on this repo. Without this entry the action is
+        # blocked, the workflow ends in startup_failure, the check never reports,
+        # and EVERY pull request is permanently unmergeable with no failing check
+        # to point at. Verified live 2026-07-20: three open PRs were BLOCKED.
+        - "NWarila/drift-gate@*"
         - "hashicorp/setup-terraform@*"
         - "aws-actions/configure-aws-credentials@*"
         - "rhysd/actionlint@*"
