@@ -1,6 +1,24 @@
 rancher-terraform-framework:
   description: "Terraform framework for deploying and managing Rancher-managed container workloads."
   visibility: "public"
+
+  # Declared to match reality, not to change it.
+  #
+  # This repository WAS created from that template - GitHub reports
+  # template_repository = NWarila/terraform-framework-template (created
+  # 2026-06-11). Terraform state records the same. But no repo YAML declared
+  # `template`, so the framework's `dynamic "template"` block produced zero
+  # blocks and every plan wanted to DROP the record from state.
+  #
+  # That drop was safe (the plan showed "will be updated in-place", not
+  # "must be replaced" - `template` is not ForceNew, and GitHub's
+  # template_repository is immutable creation history with no un-template API).
+  # It was still Terraform removing something it knew, for no reason, on every
+  # apply. Declaring the truth makes the diff disappear instead.
+  template:
+    owner: "NWarila"
+    repository: "terraform-framework-template"
+    include_all_branches: false
   topics:
     - rancher
     - terraform
