@@ -44,11 +44,11 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@f41ca27ad4f25368dff6fe3d7581085018f54009  # post-#92 (drift_issue input)
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@8df44ff5df9953929122fbea57fde0bf7298b2e3  # post-#93 (drift issue permissions fixed)
     with:
       github_owner: ${{ github.repository_owner }}
       github_is_organization: true
-      framework_ref: "f41ca27ad4f25368dff6fe3d7581085018f54009"
+      framework_ref: "8df44ff5df9953929122fbea57fde0bf7298b2e3"
       terraform_version: "1.15.4"
       # Required: default tail is terraform/private, but this data lives under repos; dropping this reintroduces the blinkstick archival bug.
       private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
