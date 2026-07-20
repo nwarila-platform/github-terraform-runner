@@ -17,6 +17,14 @@ on:
     paths:
       - "terraform/**"
       - ".github/workflows/terraform.yml"
+  schedule:
+    # Nightly drift detection. Odd minute on purpose: GitHub is more likely to
+    # delay or drop schedules clustered at the top of the hour.
+    #
+    # A scheduled run already does the right thing without new plumbing --
+    # plan_only is false (so it reads real S3 state) and apply is false (so it
+    # changes nothing). All that was missing was somewhere for the result to go.
+    - cron: "37 6 * * *"
   workflow_dispatch:
     inputs:
       apply:
@@ -28,6 +36,7 @@ on:
 permissions:
   contents: read
   id-token: write
+  issues: write # drift detection opens/closes an issue in this repo
 
 concurrency:
   group: tf-${{ github.event.repository.name }}-${{ github.ref }}
@@ -35,16 +44,20 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@0cabc9751f91430c10d38aff0fcb7a0ecd1df726  # post-#89 (plan summary is machine-readable; verified_allowed default is fail-closed)
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@f41ca27ad4f25368dff6fe3d7581085018f54009  # post-#92 (drift_issue input)
     with:
       github_owner: ${{ github.repository_owner }}
       github_is_organization: true
-      framework_ref: "0cabc9751f91430c10d38aff0fcb7a0ecd1df726"
+      framework_ref: "f41ca27ad4f25368dff6fe3d7581085018f54009"
       terraform_version: "1.15.4"
       # Required: default tail is terraform/private, but this data lives under repos; dropping this reintroduces the blinkstick archival bug.
       private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
       plan_only: ${{ github.event_name == 'pull_request' }}
       apply: ${{ github.event_name == 'workflow_dispatch' && inputs.apply }}
+      # Scheduled runs ONLY. On push, a non-empty plan means config was merged
+      # and not yet applied -- that is pending work, not drift, and filing it as
+      # drift would cry wolf on every ordinary merge.
+      drift_issue: ${{ github.event_name == 'schedule' }}
     secrets:
       aws_role_arn:      ${{ secrets.AWS_ROLE_TO_ASSUME }}
       aws_region:        ${{ secrets.AWS_REGION }}
