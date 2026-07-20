@@ -1,14 +1,22 @@
 name: 'Deploy GitHub Terraform'
 
 on:
+  # This workflow file is in its own paths filter on purpose. It carries the
+  # framework pin, and the framework is what turns these YAML files into API
+  # calls -- so a pin bump can change the outcome for every managed resource
+  # while touching nothing under terraform/. Without this entry such a change
+  # merges with no plan run at all, which is precisely the review the plan gate
+  # exists to provide.
   pull_request:
     branches: [main]
     paths:
       - "terraform/**"
+      - ".github/workflows/terraform.yml"
   push:
     branches: [main]
     paths:
       - "terraform/**"
+      - ".github/workflows/terraform.yml"
   workflow_dispatch:
     inputs:
       apply:
@@ -27,11 +35,11 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@74c5fcbba25fdc78643e56e458debbecc8677c29  # post-#86 (dependabot per-repo management removed; Renovate-only org)
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@0cabc9751f91430c10d38aff0fcb7a0ecd1df726  # post-#89 (plan summary is machine-readable; verified_allowed default is fail-closed)
     with:
       github_owner: ${{ github.repository_owner }}
       github_is_organization: true
-      framework_ref: "74c5fcbba25fdc78643e56e458debbecc8677c29"
+      framework_ref: "0cabc9751f91430c10d38aff0fcb7a0ecd1df726"
       terraform_version: "1.15.4"
       # Required: default tail is terraform/private, but this data lives under repos; dropping this reintroduces the blinkstick archival bug.
       private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
