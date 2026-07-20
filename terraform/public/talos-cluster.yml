@@ -30,7 +30,22 @@ talos-cluster:
     allowed_actions: selected
     allowed_actions_config:
       github_owned_allowed: true
-      verified_allowed: true
+      # FALSE on purpose (fail-closed). `verified_allowed: true` admits ANY
+      # Marketplace action whose creator GitHub has verified - an open-ended set
+      # that changes without a commit here. Critically, there is NO supported API
+      # that answers "would action X be permitted by verified_allowed", so while
+      # it is true the effective allow-list is not statically provable and no
+      # checker can audit it.
+      #
+      # Verified inert before flipping (2026-07-20): every `uses:` across all 10
+      # workflows, plus the transitive refs inside the called reusable workflow
+      # and the drift-gate composite action - 23 references total - resolves via
+      # github_owned_allowed (actions/*, github/*), same-owner auto-allow, or an
+      # explicit pattern below. Zero relied on verified-creator status.
+      #
+      # Consequence: a new third-party action now needs an explicit entry below.
+      # That is the point - the entry is reviewable, verified-creator status is not.
+      verified_allowed: false
       patterns_allowed:
         # REQUIRED: org-adr-sync.yaml posts the `org-adr / verify` check, which is
         # a REQUIRED status check on this repo. Without this entry the action is
