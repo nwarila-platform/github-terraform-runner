@@ -27,11 +27,11 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@face31b27454b0cd681ffb471c27757f17264c4f  # post-#85 (org control plane + plumbing + plan-leak fix)
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@74c5fcbba25fdc78643e56e458debbecc8677c29  # post-#86 (dependabot per-repo management removed; Renovate-only org)
     with:
       github_owner: ${{ github.repository_owner }}
       github_is_organization: true
-      framework_ref: "face31b27454b0cd681ffb471c27757f17264c4f"
+      framework_ref: "74c5fcbba25fdc78643e56e458debbecc8677c29"
       terraform_version: "1.15.4"
       # Required: default tail is terraform/private, but this data lives under repos; dropping this reintroduces the blinkstick archival bug.
       private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
