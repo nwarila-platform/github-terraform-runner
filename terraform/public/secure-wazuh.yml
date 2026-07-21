@@ -1,0 +1,17 @@
+secure-wazuh:
+  description: "STIG- and FIPS-hardened Wazuh 4.14.5 all-in-one SIEM: data-only Terraform provisions, composed Ansible configures, and a commit-to-main GitOps loop drives a permanent Proxmox instance plus an ephemeral AWS proof-of-concept."
+  visibility: "public"
+  topics:
+    - wazuh
+    - siem
+    - ansible
+    - terraform
+    - gitops
+    - stig
+    - fips
+    - hardening
+    - security
+    - compliance
+    - devsecops
+    - infrastructure-as-code
+    - linux
