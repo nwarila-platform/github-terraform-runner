@@ -44,11 +44,11 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@d4ab1e9b7bf5b56fd30e4d9d6a8e14b8412c6997  # post-#95 (dotfile assemble fix + destroy guard)
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@78c7bebe0182d0ff864d0506e6e4efbbe29e75c9  # post-#96 (omit repo-level web_commit_signoff when org-enforced)
     with:
       github_owner: ${{ github.repository_owner }}
       github_is_organization: true
-      framework_ref: "d4ab1e9b7bf5b56fd30e4d9d6a8e14b8412c6997"
+      framework_ref: "78c7bebe0182d0ff864d0506e6e4efbbe29e75c9"
       terraform_version: "1.15.4"
       # Required: default tail is terraform/private, but this data lives under repos; dropping this reintroduces the blinkstick archival bug.
       private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
