@@ -1,0 +1,16 @@
+pdq-deploy-inventory:
+  description: "Ansible role and playbook deploying PDQ Deploy and PDQ Inventory as an all-in-one Central Server on Windows, with dedicated database and repository volumes."
+  visibility: "public"
+  topics:
+    - ansible
+    - windows
+    - windows-server
+    - pdq
+    - pdq-deploy
+    - pdq-inventory
+    - software-deployment
+    - configuration-management
+    - infrastructure-as-code
+    - automation
+    - devsecops
+    - security
