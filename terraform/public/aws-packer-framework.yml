@@ -1,0 +1,14 @@
+aws-packer-framework:
+  description: "Packer framework for building hardened Amazon Machine Images with secure, repeatable patterns."
+  visibility: "public"
+  topics:
+    - aws
+    - packer
+    - ami
+    - ec2
+    - linux
+    - cloud-init
+    - devsecops
+    - ci-cd
+    - infrastructure-as-code
+    - security
