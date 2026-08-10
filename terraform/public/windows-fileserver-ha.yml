@@ -1,0 +1,16 @@
+windows-fileserver-ha:
+  description: "Highly available Windows file server cluster spanning two Availability Zones, four nodes on shared EBS storage, with an ephemeral AWS proof environment."
+  visibility: "public"
+  topics:
+    - windows
+    - windows-server
+    - file-server
+    - smb
+    - high-availability
+    - failover-clustering
+    - ebs
+    - multi-attach
+    - infrastructure-as-code
+    - terraform
+    - automation
+    - aws
