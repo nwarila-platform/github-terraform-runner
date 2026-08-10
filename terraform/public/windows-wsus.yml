@@ -1,6 +1,20 @@
 windows-wsus:
   description: "Ansible role and playbook deploying Windows Server Update Services on a WID backend, with dedicated data volumes and an ephemeral AWS proof environment."
   visibility: "public"
+  # Explicit CODEOWNERS: the repo's required gate (scripts/check-workflow-trigger.sh) asserts
+  # this exact rule set, so the org default ("* @NWarila") must not overwrite it. Per-repo
+  # codeowners is the documented override for repo_default_codeowners.
+  codeowners: |
+    * @NWarila
+
+    # Security- and execution-sensitive surfaces are listed explicitly so GitHub
+    # highlights the intended reviewer even if the general ownership rule changes.
+    /.github/workflows/ @NWarila
+    /.github/renovate.json5 @NWarila
+    /.github/ansible-framework-pin @NWarila
+    /.github/terraform-framework-pin @NWarila
+    /docs/reference/aws-iam/ @NWarila
+    /scripts/ @NWarila
   topics:
     - ansible
     - windows
