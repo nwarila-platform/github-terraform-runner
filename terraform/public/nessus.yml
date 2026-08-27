@@ -1,0 +1,11 @@
+nessus:
+  description: "Infrastructure-as-code deployment and configuration for a Tenable Nessus vulnerability scanner on the nwarila platform."
+  visibility: "public"
+  topics:
+    - nessus
+    - tenable
+    - vulnerability-scanning
+    - security
+    - compliance
+    - infrastructure-as-code
+    - devsecops

@@ -1,0 +1,9 @@
+jenkins:
+  description: "Infrastructure-as-code deployment and configuration for a Jenkins CI/CD controller on the nwarila platform."
+  visibility: "public"
+  topics:
+    - jenkins
+    - ci-cd
+    - automation
+    - infrastructure-as-code
+    - devsecops
