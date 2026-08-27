@@ -1,0 +1,10 @@
+grafana:
+  description: "Infrastructure-as-code deployment and configuration for Grafana observability dashboards on the nwarila platform."
+  visibility: "public"
+  topics:
+    - grafana
+    - observability
+    - monitoring
+    - dashboards
+    - infrastructure-as-code
+    - devsecops

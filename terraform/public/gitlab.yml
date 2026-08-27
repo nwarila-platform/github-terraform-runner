@@ -1,0 +1,10 @@
+gitlab:
+  description: "Infrastructure-as-code deployment and configuration for a self-hosted GitLab instance on the nwarila platform."
+  visibility: "public"
+  topics:
+    - gitlab
+    - git
+    - ci-cd
+    - devops
+    - infrastructure-as-code
+    - devsecops

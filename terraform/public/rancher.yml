@@ -1,0 +1,9 @@
+rancher:
+  description: "Infrastructure-as-code deployment and configuration for Rancher Kubernetes management on the nwarila platform."
+  visibility: "public"
+  topics:
+    - rancher
+    - kubernetes
+    - container-orchestration
+    - infrastructure-as-code
+    - devsecops

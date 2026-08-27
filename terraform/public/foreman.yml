@@ -1,0 +1,10 @@
+foreman:
+  description: "Infrastructure-as-code deployment and configuration for Foreman lifecycle and provisioning management on the nwarila platform."
+  visibility: "public"
+  topics:
+    - foreman
+    - provisioning
+    - lifecycle-management
+    - configuration-management
+    - infrastructure-as-code
+    - devsecops
