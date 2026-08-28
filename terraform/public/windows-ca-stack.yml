@@ -1,0 +1,13 @@
+windows-ca-stack:
+  description: "Infrastructure-as-code deployment and configuration for a Windows certificate authority stack (AD CS PKI) on the nwarila platform."
+  visibility: "public"
+  topics:
+    - windows
+    - windows-server
+    - adcs
+    - pki
+    - certificate-authority
+    - infrastructure-as-code
+    - terraform
+    - ansible
+    - devsecops
