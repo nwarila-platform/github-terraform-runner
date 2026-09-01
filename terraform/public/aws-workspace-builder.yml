@@ -1,0 +1,14 @@
+aws-workspace-builder:
+  description: "Builds and manages AWS WorkSpaces virtual desktops with secure, repeatable patterns."
+  visibility: "public"
+  topics:
+    - aws
+    - workspaces
+    - vdi
+    - virtual-desktop
+    - terraform
+    - infrastructure-as-code
+    - devsecops
+    - ci-cd
+    - security
+    - compliance
