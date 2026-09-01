@@ -44,11 +44,11 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@4fd428d411a97c6ed0e572b8e54d9642fad1a89e  # TEST PIN: framework#98 branch head, plan_only reads real state
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@c3e9fd1061758dfa2e05c3fda009a13573c48068  # post-#98 (plan_only reads canonical S3 state, not a reconstruction)
     with:
       github_owner: ${{ github.repository_owner }}
       github_is_organization: true
-      framework_ref: "4fd428d411a97c6ed0e572b8e54d9642fad1a89e"
+      framework_ref: "c3e9fd1061758dfa2e05c3fda009a13573c48068"
       terraform_version: "1.15.4"
       # Required: default tail is terraform/private, but this data lives under repos; dropping this reintroduces the blinkstick archival bug.
       private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
