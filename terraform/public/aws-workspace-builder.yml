@@ -1,0 +1,15 @@
+aws-workspace-builder:
+  description: "Ansible role and playbook building AWS WorkSpaces virtual desktop images on the nwarila platform."
+  visibility: "public"
+  topics:
+    - ansible
+    - aws
+    - workspaces
+    - vdi
+    - virtual-desktop
+    - image-building
+    - configuration-management
+    - infrastructure-as-code
+    - automation
+    - devsecops
+    - security
