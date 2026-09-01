@@ -44,11 +44,11 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@78c7bebe0182d0ff864d0506e6e4efbbe29e75c9  # post-#96 (omit repo-level web_commit_signoff when org-enforced)
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@4fd428d411a97c6ed0e572b8e54d9642fad1a89e  # TEST PIN: framework#98 branch head, plan_only reads real state
     with:
       github_owner: ${{ github.repository_owner }}
       github_is_organization: true
-      framework_ref: "78c7bebe0182d0ff864d0506e6e4efbbe29e75c9"
+      framework_ref: "4fd428d411a97c6ed0e572b8e54d9642fad1a89e"
       terraform_version: "1.15.4"
       # Required: default tail is terraform/private, but this data lives under repos; dropping this reintroduces the blinkstick archival bug.
       private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
@@ -68,6 +68,9 @@ jobs:
             || (github.event_name == 'workflow_dispatch' && !inputs.apply) }}
     secrets:
       aws_role_arn:      ${{ secrets.AWS_ROLE_TO_ASSUME }}
+      # Read-only role used only for plan_only pull-request runs, so a PR never
+      # holds a state-writing credential. See _handoff/iam-roles/*_planner.json.
+      aws_plan_role_arn: ${{ secrets.AWS_PLAN_ROLE_TO_ASSUME }}
       aws_region:        ${{ secrets.AWS_REGION }}
       backend_bucket:    ${{ secrets.AWS_S3_BUCKET }}
       gh_token:          ${{ secrets.FINE_GRAINED_PERSONAL_ACCESS_TOKEN }}
