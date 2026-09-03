@@ -1,0 +1,18 @@
+ubi9-gitlab:
+  description: "Red Hat UBI 9 OCI image of GitLab, built from verified upstream releases with SBOM, provenance, OpenSCAP RHEL9 STIG scoring, and Sigstore signing evidence."
+  visibility: "public"
+  topics:
+    - gitlab
+    - ubi9
+    - rhel9
+    - red-hat
+    - containers
+    - oci-images
+    - ghcr
+    - sbom
+    - provenance
+    - sigstore
+    - cosign
+    - supply-chain-security
+    - container-hardening
+    - devsecops
