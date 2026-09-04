@@ -1,0 +1,24 @@
+ubi9-guacamole:
+  description: "Red Hat UBI 9 (ubi-micro) OCI image of the Apache Guacamole guacd proxy daemon, RDP-only. Built from pinned guacamole-server source against FreeRDP, with SBOM, provenance, OpenSCAP RHEL9 STIG scoring, Trivy scan evidence, and Sigstore signing."
+  visibility: "public"
+  template:
+    owner: "NWarila"
+    repository: "ubi9-application-template"
+    include_all_branches: false
+  topics:
+    - apache-guacamole
+    - guacd
+    - rdp
+    - remote-desktop
+    - clientless-remote-desktop
+    - ubi9
+    - rhel9
+    - red-hat
+    - ubi-micro
+    - oci-images
+    - container-hardening
+    - supply-chain-security
+    - sigstore
+    - cosign
+    - sbom
+    - devsecops
