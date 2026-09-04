@@ -53,7 +53,9 @@ jobs:
       # Required: default tail is terraform/private, but this data lives under repos; dropping this reintroduces the blinkstick archival bug.
       private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
       plan_only: ${{ github.event_name == 'pull_request' }}
-      apply: ${{ github.event_name == 'workflow_dispatch' && inputs.apply }}
+      apply: >-
+        ${{ github.event_name == 'push'
+            || (github.event_name == 'workflow_dispatch' && inputs.apply) }}
       # Scheduled runs, plus an on-demand dispatch that is NOT applying. Both
       # ask the same question -- does live still match the declaration -- so an
       # operator checking for drift now should get the same report the nightly
