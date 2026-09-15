@@ -30,3 +30,6 @@ rancher-terraform-framework:
     - gitops
     - ci-cd
     - security
+
+  required_checks:
+    - "template-drift / template drift"

@@ -15,3 +15,6 @@ proxmox-terraform-framework:
   pages:
     build_type: "workflow"
     cname: null
+
+  required_checks:
+    - "template-drift / template drift"
