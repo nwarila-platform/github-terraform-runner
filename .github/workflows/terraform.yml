@@ -22,7 +22,8 @@ on:
     # likely to delay or drop schedules clustered at the top of the hour.
     # Detector mode assumes the mandatory read-only plan role, copies canonical
     # state, strips ETags, reads it locally, skips adoption/the destroy guard,
-    # and reports every actionable plan row.
+    # reports every actionable plan row, and reports repositories that are live
+    # in the organization but missing from the inventory.
     - cron: "37 6 * * *"
   workflow_dispatch:
     inputs:
@@ -43,11 +44,11 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@5b4cc46d703381d76ffbcecbb282d1302a9fbf27  # post-#99 (read-only ETag-stripped detector mode)
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@73b86e869fe4e1c61dd1e83ebc52d6adbc50f33f  # post-#102 (inventory completeness check in detector mode)
     with:
       github_owner: ${{ github.repository_owner }}
       github_is_organization: true
-      framework_ref: "5b4cc46d703381d76ffbcecbb282d1302a9fbf27"
+      framework_ref: "73b86e869fe4e1c61dd1e83ebc52d6adbc50f33f"
       terraform_version: "1.15.4"
       # Required: default tail is terraform/private, but this data lives under repos; dropping this reintroduces the blinkstick archival bug.
       private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
@@ -74,11 +75,11 @@ jobs:
   post_apply_detector:
     needs: deploy
     if: ${{ always() && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.apply)) }}
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@5b4cc46d703381d76ffbcecbb282d1302a9fbf27
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@73b86e869fe4e1c61dd1e83ebc52d6adbc50f33f
     with:
       github_owner: ${{ github.repository_owner }}
       github_is_organization: true
-      framework_ref: "5b4cc46d703381d76ffbcecbb282d1302a9fbf27"
+      framework_ref: "73b86e869fe4e1c61dd1e83ebc52d6adbc50f33f"
       terraform_version: "1.15.4"
       private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
       plan_only: false
