@@ -12,3 +12,6 @@ aws-terraform-framework:
     - devsecops
     - security
     - compliance
+  required_checks:
+    - "template-drift / template drift"
+    - "framework-template-drift / template drift"
