@@ -12,3 +12,6 @@ github-terraform-framework:
     - policy-as-code
     - rulesets
     - github-actions
+
+  required_checks:
+    - "template-drift / template drift"

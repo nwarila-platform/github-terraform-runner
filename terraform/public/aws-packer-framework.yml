@@ -12,3 +12,6 @@ aws-packer-framework:
     - ci-cd
     - infrastructure-as-code
     - security
+
+  required_checks:
+    - "template-drift / template drift"
