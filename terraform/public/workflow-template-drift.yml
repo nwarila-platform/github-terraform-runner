@@ -7,4 +7,5 @@ workflow-template-drift:
     - workflow-container
   required_checks:
     - "host harness (spike replay)"
-    - "image parity (harness inside the built image)"
+    - "image parity (amd64)"
+    - "image parity (arm64)"
