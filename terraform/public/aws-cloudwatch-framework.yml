@@ -1,0 +1,18 @@
+aws-cloudwatch-framework:
+  description: "Terraform framework for CloudWatch monitoring and alerting: emails recipients when security groups or IAM permissions change."
+  visibility: "public"
+  topics:
+    - aws
+    - terraform
+    - infrastructure-as-code
+    - cloudwatch
+    - eventbridge
+    - cloudtrail
+    - sns
+    - iam
+    - monitoring
+    - devsecops
+    - security
+    - compliance
+  required_checks:
+    - "make ci"
