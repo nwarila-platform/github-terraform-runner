@@ -13,5 +13,4 @@ aws-terraform-framework:
     - security
     - compliance
   required_checks:
-    - "template-drift / template drift"
-    - "framework-template-drift / template drift"
+    - "template-drift / run / check"
