@@ -1,0 +1,36 @@
+software-update-publisher:
+  description: "Monitors upstream vendors for new Windows software releases, verifies each artifact, publishes it to the application repository, and emits a release document naming every file with its version, size, and digest."
+  visibility: "public"
+
+  # Created from the Python type-template, the same way the Terraform framework
+  # repositories are created from theirs. The template carries the ratified
+  # package anatomy, the shared quality-gate script surface, and the pull-based
+  # sync manifest that keeps those scripts current, so a consumer inherits them
+  # instead of reinventing them. Declared here at creation rather than added
+  # afterwards to match reality -- see rancher-terraform-framework.yml for what
+  # an undeclared template costs on every subsequent plan.
+  template:
+    owner: "NWarila"
+    repository: "python-template"
+    include_all_branches: false
+
+  # required_checks is deliberately absent on this first apply. The checks this
+  # repository will require (the template's aggregate `ci-passed`, plus the org
+  # hygiene and security reusables) do not report until their caller workflows
+  # exist in the created repository. Declaring a context that never reports
+  # blocks every pull request, including the ones that would add the workflows.
+  # They are declared in a follow-up once a first run has reported each name.
+
+  topics:
+    - python
+    - automation
+    - software-updates
+    - patch-management
+    - windows
+    - aws
+    - s3
+    - artifact-repository
+    - supply-chain
+    - infrastructure-as-code
+    - devsecops
+    - security
