@@ -12,6 +12,3 @@ ansible-style-guide:
     - ci-cd
     - code-quality
     - standards
-  pages:
-    build_type: "workflow"
-    cname: null
