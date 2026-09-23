@@ -16,8 +16,22 @@
 #   - security_defaults_for_new_repositories = all false (expense-free)
 # First apply therefore flips the org's current permissive member-creation /
 # projects / signoff settings to these safe defaults (ratified).
+#
+# Public Pages is the one exception, opened deliberately on 2026-09-23. The
+# default blocks POST /repos/{owner}/{repo}/pages for everyone including an org
+# admin -- three applies of ansible-style-guide failed on "GitHub organization
+# administrators disabled Pages creation" (422), and the same call refused an
+# org-admin credential outside Terraform. A tick-box change in the org UI is not
+# durable: this file decides the setting, so the next apply reverts it, which is
+# what happened between 17:05 and 17:21 that day. Any published docs site in
+# this org needs it.
+#
+# Private Pages stays off. It is an Enterprise feature this Team-plan org cannot
+# use, so allowing it would widen the setting and buy nothing.
 org_settings = {
-  name = "nwarila-platform"
+  name                            = "nwarila-platform"
+  members_can_create_pages        = true
+  members_can_create_public_pages = true
 }
 
 # Global CODEOWNERS default for org mode. Code owners MUST be a valid user or
