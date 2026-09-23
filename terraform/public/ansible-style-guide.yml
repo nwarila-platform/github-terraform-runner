@@ -1,0 +1,17 @@
+ansible-style-guide:
+  description: "Nick's Ansible style specification, the checker that enforces it, and the published docs site."
+  visibility: "public"
+  topics:
+    - ansible
+    - style-guide
+    - linting
+    - static-analysis
+    - documentation
+    - docusaurus
+    - devsecops
+    - ci-cd
+    - code-quality
+    - standards
+  pages:
+    build_type: "workflow"
+    cname: null
