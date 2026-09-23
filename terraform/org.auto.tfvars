@@ -43,6 +43,37 @@ repo_default_codeowners = "* @NWarila\n"
 # GHAS (Team plan), so the API rejects setting these even to "disabled"
 # (422 "Updating Advanced Security ... not available"), and code_security also
 # never reads back (provider #3501). They are off in practice and unmanageable
-# here. secret_scanning + push_protection stay managed (the real paid-feature
-# lockdown on private repos).
-security_pin_exclude = ["advanced_security", "code_security", "secret_scanning_ai_detection", "secret_scanning_non_provider_patterns"]
+# here.
+#
+# secret_scanning and secret_scanning_push_protection joined them on 2026-09-23.
+# They were managed here as the paid-feature lockdown on private repos, but an
+# enforced organization security configuration now owns them:
+#
+#   nwarila-platform-org-config-1  enforcement=enforced  secret_scanning=disabled
+#
+# and an enforced configuration refuses repository-level modification of those
+# fields outright, not merely a change of value.
+#
+# Framework #105 (the pinned b9bc52e) already stopped the UPDATE path resending
+# them -- that is what cleared the 38 PATCH 422s across the existing fleet. It
+# says so in as many words: the framework "still normalizes and declares
+# security_and_analysis ... when creating a repository, but the repository
+# lifecycle now ignores both afterward", leaving security_pin_exclude as the
+# create-time payload control. Creating ansible-style-guide therefore still
+# failed, on the create:
+#
+#   PATCH /repos/nwarila-platform/ansible-style-guide: 422 An enforced security
+#   configuration prevented modifying secret scanning enablement.
+#
+# So no new repository could be created at all. An existing repository does not
+# trip it because ignore_changes suppresses the update, which is why the gap
+# stayed invisible until the first repository added after #105.
+#
+# With all six excluded, locals.tf nulls every feature and the outer guard then
+# nulls security_and_analysis itself, so the create payload omits the block
+# entirely rather than sending values the org will reject.
+#
+# This costs no protection. The enforced configuration is the stronger of the
+# two mechanisms: it applies org-wide and cannot be overridden per repository,
+# where this file could only set a value at create and then ignore its drift.
+security_pin_exclude = ["advanced_security", "code_security", "secret_scanning", "secret_scanning_push_protection", "secret_scanning_ai_detection", "secret_scanning_non_provider_patterns"]
