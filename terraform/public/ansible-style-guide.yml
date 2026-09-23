@@ -12,6 +12,21 @@ ansible-style-guide:
     - ci-cd
     - code-quality
     - standards
+  # The organization's enforced security configuration
+  # (nwarila-platform-org-config-1) mandates dependabot_alerts enabled, and an
+  # enforced configuration refuses any repository-level change. The framework
+  # defaults this to false, so creation issued
+  #   DELETE /repos/nwarila-platform/ansible-style-guide/vulnerability-alerts
+  # and was refused 422. Measured against the live repository: PUT returns 204,
+  # DELETE returns 422. Declaring true makes the create agree with the policy.
+  #
+  # None of the other 40 repositories declare this, and all of them are at the
+  # framework's false. They survive only because framework #105 added
+  # ignore_changes, so no update is ever issued -- a new repository is the only
+  # one that fails. The durable fix is upstream: let a repository omit the
+  # attribute the way web_commit_signoff_required already can, so the org
+  # setting is the single source of truth.
+  vulnerability_alerts: true
   pages:
     build_type: "workflow"
     cname: null
