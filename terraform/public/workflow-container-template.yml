@@ -1,0 +1,12 @@
+workflow-container-template:
+  description: "Golden template for organization workflow-container repositories: the chassis, the release gate, and the governance every container inherits."
+  visibility: "public"
+  is_template: true
+  topics:
+    - workflow-container
+    - template
+    - github-actions
+    - supply-chain-security
+    - sigstore
+    - slsa
+    - oci
