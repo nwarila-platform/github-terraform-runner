@@ -12,6 +12,14 @@ workflow-ansible-style-checker:
     - yamllint
     - linting
     - code-quality
+  # The organization's enforced security configuration
+  # (nwarila-platform-org-config-1) mandates dependabot_alerts enabled, and an
+  # enforced configuration refuses any repository-level change. The framework
+  # defaults this to false, so creation issued
+  #   DELETE /repos/nwarila-platform/workflow-ansible-style-checker/vulnerability-alerts
+  # and was refused 422 after template creation but before any dependent resource.
+  # As for ansible-style-guide, declaring true makes creation agree with policy.
+  vulnerability_alerts: true
   rules:
     - name: "Branch Safety"
       target: "branch"
