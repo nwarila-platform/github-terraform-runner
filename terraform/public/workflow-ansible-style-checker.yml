@@ -1,0 +1,80 @@
+workflow-ansible-style-checker:
+  description: "Workflow container that enforces the organization Ansible style specification with ansible-lint, yamllint, and the organization's own role rules."
+  visibility: "public"
+  template:
+    owner: "nwarila-platform"
+    repository: "workflow-container-template"
+    include_all_branches: false
+  topics:
+    - workflow-container
+    - ansible
+    - ansible-lint
+    - yamllint
+    - linting
+    - code-quality
+  rules:
+    - name: "Branch Safety"
+      target: "branch"
+      enforcement: "active"
+      bypass_actors:
+        - actor_id: 5
+          actor_type: "RepositoryRole"
+          bypass_mode: "always"
+      conditions:
+        include: ["~DEFAULT_BRANCH"]
+        exclude: []
+      rules:
+        creation: true
+        update: true
+        deletion: true
+        non_fast_forward: true
+        required_linear_history: true
+        required_signatures: true
+
+    - name: "Pull Request Gate"
+      target: "branch"
+      enforcement: "active"
+      bypass_actors:
+        - actor_id: 5
+          actor_type: "RepositoryRole"
+          bypass_mode: "always"
+      conditions:
+        include: ["~DEFAULT_BRANCH"]
+        exclude: []
+      rules:
+        pull_request:
+          allowed_merge_methods: ["squash"]
+          dismiss_stale_reviews_on_push: true
+          require_code_owner_review: true
+          require_last_push_approval: true
+          required_approving_review_count: 1
+          required_review_thread_resolution: true
+
+    - name: "Release Tag Protection"
+      target: "tag"
+      enforcement: "active"
+      bypass_actors:
+        - actor_id: 5
+          actor_type: "RepositoryRole"
+          bypass_mode: "always"
+      conditions:
+        include: ["~ALL"]
+        exclude: []
+      rules:
+        deletion: true
+        non_fast_forward: true
+        required_signatures: true
+
+    - name: "Version Tag Authority"
+      target: "tag"
+      enforcement: "active"
+      bypass_actors:
+        - actor_id: 5
+          actor_type: "RepositoryRole"
+          bypass_mode: "always"
+      conditions:
+        include: ["v*"]
+        exclude: []
+      rules:
+        creation: true
+        update: true
