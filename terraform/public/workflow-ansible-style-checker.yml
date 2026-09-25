@@ -81,7 +81,7 @@ workflow-ansible-style-checker:
           actor_type: "RepositoryRole"
           bypass_mode: "always"
       conditions:
-        include: ["v*"]
+        include: ["refs/tags/v*"]
         exclude: []
       rules:
         creation: true
