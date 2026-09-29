@@ -1,6 +1,7 @@
 aws-monitoring-terraform-runner:
   description: "Deploys the pinned aws-monitoring-terraform-framework to the organization's AWS account from GitHub Actions."
   visibility: "public"
+  archived: true
   topics:
     - aws
     - terraform
