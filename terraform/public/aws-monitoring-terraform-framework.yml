@@ -16,3 +16,4 @@ aws-monitoring-terraform-framework:
     - compliance
   required_checks:
     - "make ci"
+    - "template-drift / run / check"
