@@ -44,11 +44,11 @@ concurrency:
 
 jobs:
   deploy:
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@b9bc52ec6b1cc490e7d9cfa9f7872730fbeca442  # post-#102 (inventory completeness check in detector mode)
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@f729e7458d0d45c1331dfdae081e7fe8bf2b6b46  # post-#106 (omit the default private/internal forking setting; includes #107 branch-safety update)
     with:
       github_owner: ${{ github.repository_owner }}
       github_is_organization: true
-      framework_ref: "b9bc52ec6b1cc490e7d9cfa9f7872730fbeca442"
+      framework_ref: "f729e7458d0d45c1331dfdae081e7fe8bf2b6b46"
       terraform_version: "1.15.4"
       # Required: default tail is terraform/private, but this data lives under repos; dropping this reintroduces the blinkstick archival bug.
       private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
@@ -75,11 +75,11 @@ jobs:
   post_apply_detector:
     needs: deploy
     if: ${{ always() && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.apply)) }}
-    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@b9bc52ec6b1cc490e7d9cfa9f7872730fbeca442
+    uses: nwarila-platform/github-terraform-framework/.github/workflows/reusable-terraform-deploy.yaml@f729e7458d0d45c1331dfdae081e7fe8bf2b6b46
     with:
       github_owner: ${{ github.repository_owner }}
       github_is_organization: true
-      framework_ref: "b9bc52ec6b1cc490e7d9cfa9f7872730fbeca442"
+      framework_ref: "f729e7458d0d45c1331dfdae081e7fe8bf2b6b46"
       terraform_version: "1.15.4"
       private_repos_prefix: "nwarila-platform/github-terraform-runner/repos"
       plan_only: false
