@@ -1,0 +1,84 @@
+workflow-container-factory:
+  description: "One repository that builds, signs, attests and publishes every workflow container the organization's CI runs, each image versioned on its own."
+  visibility: "public"
+  topics:
+    - workflow-container
+    - container-factory
+    - github-actions
+    - supply-chain-security
+    - sigstore
+    - slsa
+    - oci
+  # vulnerability_alerts is omitted on purpose. The organization's enforced
+  # security configuration (nwarila-platform-org-config-1) disables Dependabot
+  # alerts, and the framework default (false) agrees with it.
+  rules:
+    - name: "Branch Safety"
+      target: "branch"
+      enforcement: "active"
+      bypass_actors:
+        - actor_id: 5
+          actor_type: "RepositoryRole"
+          bypass_mode: "always"
+      conditions:
+        include: ["~DEFAULT_BRANCH"]
+        exclude: []
+      rules:
+        creation: true
+        update: true
+        deletion: true
+        non_fast_forward: true
+        required_linear_history: true
+        required_signatures: true
+
+    - name: "Pull Request Gate"
+      target: "branch"
+      enforcement: "active"
+      bypass_actors:
+        - actor_id: 5
+          actor_type: "RepositoryRole"
+          bypass_mode: "always"
+      conditions:
+        include: ["~DEFAULT_BRANCH"]
+        exclude: []
+      rules:
+        pull_request:
+          allowed_merge_methods: ["squash"]
+          dismiss_stale_reviews_on_push: true
+          require_code_owner_review: true
+          require_last_push_approval: true
+          required_approving_review_count: 1
+          required_review_thread_resolution: true
+
+    - name: "Release Tag Protection"
+      target: "tag"
+      enforcement: "active"
+      bypass_actors:
+        - actor_id: 5
+          actor_type: "RepositoryRole"
+          bypass_mode: "always"
+      conditions:
+        include: ["~ALL"]
+        exclude: []
+      rules:
+        deletion: true
+        non_fast_forward: true
+        required_signatures: true
+
+    # Each container is released by a tag of the form <name>/v<X.Y.Z>, for
+    # example template-drift/v3.1.0. A ruleset's * does not match "/", so this
+    # pattern matches exactly one folder level, and only admins may create or
+    # move a release tag.
+    - name: "Version Tag Authority"
+      target: "tag"
+      enforcement: "active"
+      bypass_actors:
+        - actor_id: 5
+          actor_type: "RepositoryRole"
+          bypass_mode: "always"
+      conditions:
+        include: ["refs/tags/*/v*"]
+        exclude: []
+      rules:
+        creation: true
+        update: true
