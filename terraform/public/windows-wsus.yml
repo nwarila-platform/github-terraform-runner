@@ -1,5 +1,5 @@
 windows-wsus:
-  description: "Ansible role and playbook deploying Windows Server Update Services on a WID backend, with dedicated data volumes and an ephemeral AWS proof environment."
+  description: "Ansible role and playbook deploying Windows Server Update Services on SQL Server 2022, with dedicated data volumes and an ephemeral AWS proof environment."
   visibility: "public"
   topics:
     - ansible

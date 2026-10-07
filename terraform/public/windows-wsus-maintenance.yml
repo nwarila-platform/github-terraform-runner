@@ -1,0 +1,16 @@
+windows-wsus-maintenance:
+  description: "Single-script PowerShell tool that automates Windows Server Update Services on SQL Server: cleanup, declines, deferred approval with early content download, and SUSDB upkeep."
+  visibility: "public"
+  required_checks:
+    - "build (windows-powershell51)"
+    - "actionlint"
+    - "secret scan (gitleaks)"
+  topics:
+    - windows
+    - powershell
+    - wsus
+    - windows-server
+    - sql-server
+    - patch-management
+    - sysadmin
+    - automation
