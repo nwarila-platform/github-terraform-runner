@@ -9,6 +9,8 @@ workflow-container-factory:
     - sigstore
     - slsa
     - oci
+  required_checks:
+    - "CI result"
   # vulnerability_alerts is omitted on purpose. The organization's enforced
   # security configuration (nwarila-platform-org-config-1) disables Dependabot
   # alerts, and the framework default (false) agrees with it.
