@@ -14,6 +14,10 @@ workflow-container-factory:
   # vulnerability_alerts is omitted on purpose. The organization's enforced
   # security configuration (nwarila-platform-org-config-1) disables Dependabot
   # alerts, and the framework default (false) agrees with it.
+  # Immutable releases are on for this repository, set outside Terraform with
+  # PUT /repos/nwarila-platform/workflow-container-factory/immutable-releases
+  # under Director exception F-D10 (2026-10-08): the GitHub provider cannot
+  # manage the setting yet. Move it here when it can.
   rules:
     - name: "Branch Safety"
       target: "branch"
@@ -69,14 +73,18 @@ workflow-container-factory:
 
     # Each container is released by a tag of the form <name>/v<X.Y.Z>, for
     # example template-drift/v3.1.0. A ruleset's * does not match "/", so this
-    # pattern matches exactly one folder level, and only admins may create or
-    # move a release tag.
+    # pattern matches exactly one folder level. Only admins and the GitHub
+    # Actions app (ID 15368) may create or move a release tag: CI creates it,
+    # signed, after a release-please pull request merges.
     - name: "Version Tag Authority"
       target: "tag"
       enforcement: "active"
       bypass_actors:
         - actor_id: 5
           actor_type: "RepositoryRole"
+          bypass_mode: "always"
+        - actor_id: 15368
+          actor_type: "Integration"
           bypass_mode: "always"
       conditions:
         include: ["refs/tags/*/v*"]
