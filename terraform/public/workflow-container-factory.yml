@@ -73,18 +73,14 @@ workflow-container-factory:
 
     # Each container is released by a tag of the form <name>/v<X.Y.Z>, for
     # example template-drift/v3.1.0. A ruleset's * does not match "/", so this
-    # pattern matches exactly one folder level. Only admins and the GitHub
-    # Actions app (ID 15368) may create or move a release tag: CI creates it,
-    # signed, after a release-please pull request merges.
+    # pattern matches exactly one folder level, and only admins may create or
+    # move a release tag.
     - name: "Version Tag Authority"
       target: "tag"
       enforcement: "active"
       bypass_actors:
         - actor_id: 5
           actor_type: "RepositoryRole"
-          bypass_mode: "always"
-        - actor_id: 15368
-          actor_type: "Integration"
           bypass_mode: "always"
       conditions:
         include: ["refs/tags/*/v*"]
