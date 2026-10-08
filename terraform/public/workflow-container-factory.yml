@@ -18,6 +18,22 @@ workflow-container-factory:
   # PUT /repos/nwarila-platform/workflow-container-factory/immutable-releases
   # under Director exception F-D10 (2026-10-08): the GitHub provider cannot
   # manage the setting yet. Move it here when it can.
+  # The release environment holds the secret RELEASE_TAG_DEPLOY_KEY, the private
+  # half of this repository's one write deploy key. Only jobs on main may use it,
+  # and CI pushes release tags with it (Director decision F-D12, 2026-10-08). The
+  # key and the secret are created outside Terraform, which cannot hold the key
+  # material; the framework would create the secret empty.
+  environments:
+    release:
+      wait_timer: 0
+      can_admins_bypass: false
+      prevent_self_review: false
+      deployment_branch_policy:
+        protected_branches: false
+        custom_branch_policies: true
+      branch_policies:
+        - main
+
   rules:
     - name: "Branch Safety"
       target: "branch"
@@ -73,14 +89,18 @@ workflow-container-factory:
 
     # Each container is released by a tag of the form <name>/v<X.Y.Z>, for
     # example template-drift/v3.1.0. A ruleset's * does not match "/", so this
-    # pattern matches exactly one folder level, and only admins may create or
-    # move a release tag.
+    # pattern matches exactly one folder level. Only admins and the repository's
+    # deploy key may create or update a release tag, and Release Tag Protection
+    # keeps deleting one or force-moving it to admins. CI pushes release tags
+    # with that key after a release-please merge (F-D12). A deploy key has no ID.
     - name: "Version Tag Authority"
       target: "tag"
       enforcement: "active"
       bypass_actors:
         - actor_id: 5
           actor_type: "RepositoryRole"
+          bypass_mode: "always"
+        - actor_type: "DeployKey"
           bypass_mode: "always"
       conditions:
         include: ["refs/tags/*/v*"]
